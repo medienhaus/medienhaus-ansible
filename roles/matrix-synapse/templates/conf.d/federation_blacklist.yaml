@@ -1,0 +1,4 @@
+federation_ip_range_blacklist:
+{% for federation_ip_range in synapse_federation_ip_range_blacklist %}
+  - '{{ federation_ip_range }}'
+{% endfor %}

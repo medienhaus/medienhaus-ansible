@@ -1,0 +1,4 @@
+auto_join_rooms:
+{% for room_id in synapse_auto_join_rooms %}
+  - "{{ room_id }}"
+{% endfor %}

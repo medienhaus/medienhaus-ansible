@@ -1,0 +1,5 @@
+---
+- name: install, configure, and start postgresql
+  apt:
+    name: postgresql
+    update_cache: yes

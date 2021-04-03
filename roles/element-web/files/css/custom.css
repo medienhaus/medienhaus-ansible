@@ -1,0 +1,595 @@
+@import url("./fonts.css");
+
+/* font-family sans-serif */
+* {
+  border-radius: unset !important;
+  font-family: "Inter", "Apple Color Emoji", "Twemoji", sans-serif !important;
+}
+
+/* font-family monospace */
+code, pre, kbd, samp,
+code a, pre a, kbd a, samp a,
+.mx_EventTile_content .markdown-body code, .mx_EventTile_content .markdown-body pre {
+  font-family: "Roboto Mono", "Apple Color Emoji", "Twemoji", monospace !important;
+}
+
+/* medienhaus/ sidebar header */
+.mx_medienhaus_header {
+  border-bottom-color: var(--roomlist-separator-color);
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+}
+.mx_medienhaus_header .mx_medienhaus_header_row {
+  padding-top: 1.5px;
+  padding-bottom: 2.5px;
+}
+.mx_medienhaus_header .mx_medienhaus_header_row > :first-child {
+  flex: 1;
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+/* hide mask-image of avatar which looks like border-radius wtf */
+.mx_DecoratedRoomAvatar.mx_DecoratedRoomAvatar_cutout .mx_BaseAvatar,
+.mx_TemporaryTile.mx_DecoratedRoomAvatar_cutout .mx_BaseAvatar {
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+}
+
+/* channel private/public/federated indicator */
+.mx_DecoratedRoomAvatar .mx_DecoratedRoomAvatar_icon,
+.mx_TemporaryTile .mx_DecoratedRoomAvatar_icon {
+  background-color: white;
+  border-color: var(--roomlist-background-color);
+  border-radius: 50% !important;
+  border-style: solid;
+  border-width: 2px;
+  right: -10px;
+  bottom: -4px;
+}
+
+/* hide status indicator icon */
+/*
+.mx_DecoratedRoomAvatar .mx_DecoratedRoomAvatar_icon_offline::before,
+.mx_TemporaryTile .mx_DecoratedRoomAvatar_icon_offline::before {
+  background-color: unset;
+}
+*/
+
+/* hide some icon buttons */
+/*
+.mx_RoomHeader_manageIntegsButton {
+*/
+.mx_EventListSummary_toggle,
+.mx_MessageComposer_stickers {
+  display: none;
+}
+
+/* hide share dialog qr code and social icon buttons */
+/*
+.mx_ShareDialog_content hr,
+.mx_ShareDialog_content .mx_ShareDialog_split,
+.mx_ShareDialog_content .mx_ShareDialog_matrixto + div,
+.mx_ShareDialog_content .mx_ShareDialog_matrixto_copy > div {
+  display: none;
+}
+*/
+
+/* hide read marker */
+.mx_RoomView_myReadMarker {
+  display: none;
+}
+
+/* hide theme button */
+.mx_UserMenu_contextMenu .mx_UserMenu_contextMenu_header .mx_UserMenu_contextMenu_themeButton {
+  display: none;
+}
+.mx_UserMenu_contextMenu .mx_UserMenu_contextMenu_header .mx_UserMenu_contextMenu_name {
+  width: 100%;
+}
+
+/* hide default theme buttons */
+.mx_ThemeSelector_dark,
+.mx_ThemeSelector_light {
+  display: none;
+}
+
+/* hide match system theme */
+.mx_AppearanceUserSettingsTab_themeSection > div:first-of-type {
+  display: none;
+}
+
+/* hide room publication option */
+/*
+.mx_CreateRoomDialog .mx_Dialog_content > .mx_CreateRoomDialog_details,
+*/
+.mx_CreateRoomDialog .mx_Dialog_content > .mx_SettingsFlag:not(.mx_CreateRoomDialog_e2eSwitch),
+.mx_CreateRoomDialog .mx_Dialog_content > .mx_SettingsFlag:not(.mx_CreateRoomDialog_e2eSwitch) + p {
+  display: none;
+}
+
+/* username pill colors and alignment */
+.mx_Pill,
+.mx_UserPill,
+.mx_EventTile_content .markdown-body a.mx_UserPill {
+  background-color: unset;
+  line-height: initial;
+  padding: initial;
+  text-decoration: underline;
+}
+
+/* group/room pill colors */
+.mx_RoomPill,
+.mx_GroupPill,
+.mx_EventTile_content .mx_AtRoomPill,
+.mx_MessageComposer_input .mx_AtRoomPill,
+.mx_EventTile_content .markdown-body a.mx_RoomPill,
+.mx_EventTile_content .markdown-body a.mx_GroupPill,
+.mx_EventTile_content .markdown-body a.mx_AtRoomPill,
+.mx_EventTile_highlight .mx_EventTile_content .markdown-body a.mx_UserPill_me {
+  color: var(--timeline-text-color);
+  background-color: unset;
+}
+
+/* checkbox/radio border color */
+.mx_RadioButton > input[type="radio"] + div,
+.mx_RadioButton > input[type="radio"]:disabled + div,
+.mx_Checkbox input[type="checkbox"] + label > .mx_Checkbox_background {
+  border-color: var(--accent-color);
+}
+
+/* checkbox/radio background color */
+.mx_RadioButton > input[type="radio"]:checked:disabled + div > div,
+.mx_Checkbox input[type="checkbox"]:checked + label > .mx_Checkbox_background {
+  background-color: var(--primary-color);
+}
+
+/* checkbox/radio text color */
+.mx_AppearanceUserSettingsTab_themeSection > .mx_ThemeSelectors > .mx_RadioButton {
+  color: var(--primary-color);
+}
+
+/* icon button colors */
+.mx_AppTileMenuBar_iconButton,
+.mx_Dialog_cancelButton,
+.mx_E2EIcon_normal::after,
+.mx_RightPanel_empty::before,
+.mx_EntityTile:hover::before,
+.mx_RoomHeader_button::before,
+.mx_GroupHeader_button::before,
+.mx_RightPanel_headerButton::before,
+.mx_MessageComposer_button::before,
+.mx_UserInfo .mx_UserInfo_cancel div,
+.mx_cryptoEvent.mx_cryptoEvent_icon::after,
+.mx_cryptoEvent.mx_cryptoEvent_icon::before,
+.mx_EventTile_e2eIcon_unauthenticated::after,
+.mx_BaseCard .mx_BaseCard_Group .mx_BaseCard_Button::after,
+.mx_RoomSummaryCard .mx_RoomSummaryCard_aboutGroup .mx_RoomSummaryCard_Button::before,
+.mx_BaseCard .mx_BaseCard_header .mx_BaseCard_back::before, .mx_BaseCard .mx_BaseCard_header .mx_BaseCard_close::before {
+  background-color: var(--accent-color);
+}
+
+/* info panel button background color */
+.mx_BaseCard .mx_BaseCard_header .mx_BaseCard_back, .mx_BaseCard .mx_BaseCard_header .mx_BaseCard_close {
+  background-color: unset;
+}
+
+/* input border color */
+.mx_Field,
+.mx_Dialog .mx_textinput {
+  border-color: var(--accent-color);
+}
+
+/* join button colors */
+.mx_DirectorySearchBox_joinButton {
+  color: var(--accent-color);
+}
+
+/* underline markdown links */
+.mx_EventTile_content .markdown-body a:link {
+  text-decoration: underline;
+}
+
+/* menu button hover colors */
+.mx_IconizedContextMenu .mx_IconizedContextMenu_optionList .mx_AccessibleButton:hover {
+  background-color: var(--sidebar-color);
+}
+
+/* room summary card background color */
+.mx_RoomSummaryCard .mx_BaseCard_header .mx_RoomSummaryCard_avatar .mx_RoomSummaryCard_e2ee {
+  background-color: var(--accent-color);
+}
+
+/* seperator color */
+.mx_HeaderButtons::before {
+  background-color: var(--roomlist-separator-color);
+  opacity: unset;
+}
+
+/* size preview border color */
+.mx_AppearanceUserSettingsTab_fontSlider_preview {
+  border-color: var(--accent-color);
+}
+
+/* slider colors */
+.mx_AppearanceUserSettingsTab_fontSlider {
+  background-color: var(--sidebar-color);
+}
+.mx_Slider_dot,
+.mx_Slider_bar > hr {
+  background-color: var(--accent-color);
+}
+.mx_Slider_dotActive,
+.mx_Slider_selectionDot {
+  background-color: var(--primary-color);
+  box-shadow: unset;
+}
+.mx_Slider_selection > hr {
+  border-color: var(--primary-color);
+}
+
+/* theme button color */
+.mx_UserMenu_contextMenu .mx_UserMenu_contextMenu_header .mx_UserMenu_contextMenu_themeButton {
+  background-color: var(--sidebar-color);
+}
+
+/* timeline hover color */
+.mx_EventTile:hover .mx_EventTile_line {
+  background-color: var(--sidebar-color);
+}
+
+/* timeline hr color */
+.markdown-body hr {
+  color: var(--accent-color);
+  height: 1px;
+}
+
+/* message action bar border color */
+.mx_MessageActionBar > * {
+  border-color: var(--accent-color-50pct);
+}
+.mx_MessageActionBar > :hover {
+  border-color: var(--accent-color);
+}
+
+/* message timestamp color */
+.mx_MessageTimestamp {
+  color: var(--timeline-text-color-50pct);
+}
+
+/* is typing color */
+.mx_WhoIsTypingTile_label {
+  border-color: var(--timeline-text-color-50pct);
+  color: var(--accent-color);
+}
+
+/* jump to newest/unread button color */
+.mx_JumpToBottomButton_scrollDown,
+.mx_TopUnreadMessagesBar_scrollUp,
+.mx_TopUnreadMessagesBar_markAsRead {
+  border-color: var(--accent-color-50pct);
+}
+.mx_TopUnreadMessagesBar_scrollUp::before,
+.mx_JumpToBottomButton_scrollDown::before,
+.mx_TopUnreadMessagesBar_markAsRead::before {
+  background-color: var(--primary-color);
+}
+.mx_JumpToBottomButton_scrollDown:hover,
+.mx_TopUnreadMessagesBar_scrollUp:hover,
+.mx_TopUnreadMessagesBar_markAsRead:hover {
+  border-color: var(--accent-color);
+}
+.mx_TopUnreadMessagesBar_scrollUp:hover::before,
+.mx_JumpToBottomButton_scrollDown:hover::before,
+.mx_TopUnreadMessagesBar_markAsRead:hover::before {
+  background-color: var(--primary-color);
+}
+
+/* toggle switch colors */
+.mx_ToggleSwitch {
+  background-color: var(--accent-color-50pct);
+}
+
+/* reaction button colors */
+.mx_ReactionsRowButton {
+  border-color: var(--accent-color);
+}
+.mx_ReactionsRowButton.mx_ReactionsRowButton_selected {
+  background-color: var(--sidebar-color);
+  border-color: var(--accent-color);
+}
+
+/* room directory colors */
+.mx_NetworkDropdown_server {
+  border-bottom-color: var(--roomlist-separator-color);
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+}
+.mx_NetworkDropdown_server_add::before {
+  background-color: var(--primary-color);
+}
+
+/* room list add button color */
+.mx_RoomSublist .mx_RoomSublist_headerContainer .mx_RoomSublist_auxButton::before,
+.mx_RoomSublist .mx_RoomSublist_headerContainer .mx_RoomSublist_menuButton::before {
+  background-color: var(--primary-color);
+}
+
+/* room list jitsi widget icon color */
+.mx_MJitsiWidgetEvent::before {
+  background-color: var(--accent-color);
+}
+
+/* room list notification color */
+.mx_NotificationBadge.mx_NotificationBadge_visible {
+  background-color: var(--accent-color);
+}
+
+/* tooltip colors */
+.mx_Tooltip,
+.mx_Tooltip_timeline {
+  background-color: var(--accent-color);
+  box-shadow: unset;
+}
+
+/* search bar unselected color */
+.mx_SearchBar .mx_SearchBar_unselected {
+  color: var(--accent-color);
+}
+
+/* search bar input placeholder color */
+.mx_Dialog .mx_textinput input::placeholder,
+.mx_MatrixChat .mx_textinput input::placeholder,
+.mx_Dialog :not(.mx_textinput):not(.mx_Field):not(.mx_no_textinput) > input[type="text"]::placeholder,
+.mx_Dialog :not(.mx_textinput):not(.mx_Field):not(.mx_no_textinput) > input[type="search"]::placeholder,
+.mx_MatrixChat :not(.mx_textinput):not(.mx_Field):not(.mx_no_textinput) > input[type="text"]::placeholder,
+.mx_MatrixChat :not(.mx_textinput):not(.mx_Field):not(.mx_no_textinput) > input[type="search"]::placeholder {
+  color: var(--primary-color);
+}
+
+/* search function border color */
+/*
+.mx_RoomSearch,
+.mx_LeftPanel .mx_LeftPanel_roomListContainer .mx_LeftPanel_filterContainer .mx_LeftPanel_exploreButton {
+  border-color: var(--sidebar-color);
+  border-style: solid;
+  border-width: 1px;
+}
+*/
+
+/* search/filter in room list padding */
+.mx_LeftPanel .mx_LeftPanel_roomListContainer .mx_LeftPanel_filterContainer {
+  margin-left: 12px;
+  margin-right: 4px;
+}
+.mx_RoomSearch.mx_RoomSearch_focused .mx_RoomSearch_clearButton,
+.mx_RoomSearch.mx_RoomSearch_hasQuery .mx_RoomSearch_clearButton {
+  margin-right: 6px;
+}
+
+/* search function in room list input placeholder color */
+.mx_RoomSearch .mx_RoomSearch_input:not(.mx_RoomSearch_inputExpanded)::placeholder {
+  color: var(--primary-color);
+}
+
+/* settings menu colors */
+.mx_SettingsTab {
+  color: var(--accent-color);
+}
+
+/* settings menu hover colors */
+.mx_TopLeftMenu .mx_TopLeftMenu_section_withIcon .mx_AccessibleButton:hover {
+  background-color: var(--sidebar-color);
+}
+
+/* settings menu tab colors */
+.mx_TabbedView_tabLabels {
+  color: var(--timeline-text-color);
+}
+.mx_TabbedView_tabLabel_active {
+  color: #ffffff;
+}
+.mx_TabbedView_maskedIcon::before {
+  background-color: var(--timeline-text-color);
+}
+.mx_TabbedView_tabLabel_active .mx_TabbedView_maskedIcon::before {
+  background-color: #ffffff;
+}
+
+/* settings menu phone number field prefix */
+.mx_Field_prefix {
+  border: unset !important;
+}
+
+/* settings menu upload button colors */
+.mx_AvatarSetting_avatar .mx_AvatarSetting_uploadButton {
+  background-color: var(--roomlist-highlights-color);
+}
+.mx_AvatarSetting_avatar .mx_AvatarSetting_uploadButton::before {
+  background-color: var(--primary-color);
+}
+.mx_AvatarSetting_avatar .mx_AvatarSetting_hover .mx_AvatarSetting_hoverBg {
+  background-color: var(--accent-color);
+}
+
+/* settings menu disabled button colors */
+.mx_AccessibleButton_kind_primary.mx_AccessibleButton_disabled,
+.mx_AccessibleButton_kind_primary_outline.mx_AccessibleButton_disabled {
+  background-color: var(--accent-color-15pct);
+  opacity: unset;
+}
+
+/* settings menu slider colors */
+.mx_Slider_dot, .mx_Slider_bar > hr {
+  background-color: var(--timeline-background-color);
+}
+.mx_Slider_dotActive {
+  background-color: var(--primary-color);
+}
+
+/* user menu padding right */
+.mx_UserMenu {
+  padding-right: unset;
+}
+
+/* user info role description icon colors */
+.mx_UserInfo_memberDetails .mx_IconButton,
+.mx_UserInfo_roleDescription .mx_IconButton {
+  background-color: unset;
+}
+.mx_UserInfo_memberDetails .mx_IconButton:hover,
+.mx_UserInfo_roleDescription .mx_IconButton:hover {
+  opacity: unset;
+}
+
+/* widget bar colors */
+.mx_AppTileMenuBar {
+  background-color: var(--sidebar-color);
+}
+.mx_AppTile,
+.mx_AppTileFullWidth {
+  border-color: var(--sidebar-color);
+}
+
+/* widget permissions dialog colors */
+.mx_WidgetCapabilitiesPromptDialog .text-muted,
+.mx_WidgetCapabilitiesPromptDialog .mx_SettingsFlag {
+  color: var(--accent-color);
+}
+
+/* create room colors */
+.mx_CreateRoomDialog p,
+.mx_CreateRoomDialog .mx_Field_input label {
+  color: var(--accent-color);
+}
+
+/* create direct message colors */
+.mx_InviteDialog_addressBar .mx_InviteDialog_editor,
+.mx_InviteDialog_roomTile:hover {
+  background-color: var(--sidebar-color);
+}
+.mx_InviteDialog_section h3,
+.mx_InviteDialog_roomTile .mx_InviteDialog_roomTile_userId,
+.mx_InviteDialog_roomTile .mx_InviteDialog_roomTile_time {
+  color: var(--accent-color);
+}
+
+/* right panel border-left */
+.mx_MainSplit > .mx_RightPanel_ResizeWrapper {
+  border-left-color: var(--sidebar-color);
+  border-left-width: 1px;
+  border-left-style: solid;
+}
+
+/* right panel member list invite button */
+.mx_MemberList_invite.mx_AccessibleButton_disabled {
+  background-color: var(--accent-color-15pct);
+}
+
+/* right panel pin widget icon color */
+.mx_RoomSummaryCard .mx_RoomSummaryCard_appsGroup .mx_RoomSummaryCard_Button .mx_RoomSummaryCard_app_options::before,
+.mx_RoomSummaryCard .mx_RoomSummaryCard_appsGroup .mx_RoomSummaryCard_Button .mx_RoomSummaryCard_app_pinToggle::before {
+  background-color: var(--accent-color-50pct);
+}
+
+/* search bar colors */
+.mx_SearchBar .mx_SearchBar_unselected {
+  color: var(--accent-color);
+}
+
+/* server colors */
+.mx_NetworkDropdown_handle .mx_NetworkDropdown_handle_server,
+.mx_NetworkDropdown_server .mx_NetworkDropdown_server_subtitle {
+  color: var(--accent-color);
+}
+
+/* community right panel headline color */
+.mx_MemberInfo h3 {
+  color: var(--primary-color);
+}
+
+/* home colors */
+.mx_HomePage_default h4,
+.mx_HomePage_default .mx_HomePage_default_buttons .mx_AccessibleButton {
+  background-color: unset;
+  color: var(--accent-color);
+}
+.mx_HomePage_default .mx_HomePage_default_buttons .mx_AccessibleButton::before {
+  background-color: var(--accent-color);
+}
+.mx_HomePage_default .mx_HomePage_default_buttons .mx_AccessibleButton:hover {
+  background-color: var(--sidebar-color);
+}
+
+/* verification colors */
+.mx_VerificationPanel_QRPhase_startOption,
+.mx_Dialog .mx_VerificationPanel_QRPhase_startOptions .mx_VerificationPanel_QRPhase_startOption,
+.mx_CompleteSecurity_body .mx_VerificationPanel_QRPhase_startOptions .mx_VerificationPanel_QRPhase_startOption {
+  background-color: var(--sidebar-color);
+}
+
+/* login, welcome, register, forgot_password */
+.mx_AuthPage,
+.mx_AuthPage_modal,
+.mx_AuthPage_modalBlur {
+  background: unset !important;
+  box-shadow: unset !important;
+  filter: unset !important;
+}
+.mx_AuthHeader,
+.mx_AuthFooter,
+.mx_ServerPicker {
+  display: none;
+}
+.mx_AuthBody,
+.mx_AuthBody h3,
+.mx_AuthBody .mx_Field input:focus + label,
+.mx_AuthBody .mx_Field select:focus + label,
+.mx_AuthBody .mx_Field textarea:focus + label,
+.mx_AuthBody .mx_Field_valid.mx_Field label,
+.mx_AuthBody .mx_Field_valid.mx_Field:focus-within label {
+  color: var(--primary-color);
+}
+.mx_AuthBody .mx_Field:focus-within,
+.mx_AuthBody .mx_Field_valid.mx_Field,
+.mx_AuthBody .mx_Field_valid.mx_Field:focus-within {
+  border-color: var(--primary-color);
+}
+.mx_AuthBody a:hover,
+.mx_AuthBody a:link,
+.mx_AuthBody a:visited,
+.mx_AuthBody .mx_linkButton,
+.mx_AuthBody .mx_AccessibleButton_kind_link {
+  color: var(--accent-color);
+  text-decoration: underline;
+}
+.mx_CompleteSecurity_clients p {
+  color: var(--accent-color);
+}
+.mx_CompleteSecurity_clients .mx_CompleteSecurity_clients_desktop::before,
+.mx_CompleteSecurity_clients .mx_CompleteSecurity_clients_mobile::before {
+  background-color: var(--accent-color);
+}
+.mx_Dialog_buttons button {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+.mx_Dialog_buttons button.mx_Dialog_primary {
+  background-color: var(--primary-color);
+}
+.mx_InteractiveAuthEntryComponents_emailWrapper::before {
+  background-color: unset;
+}
+.mx_Tooltip_visible {
+  background-color: rgb(255,255,255);
+}
+.error, .text-error, .text-warning, .warning  {
+  color: var(--primary-color);
+}
+
+/* login button color */
+.mx_Login_submit {
+  background-color: rgb(0,0,0);
+  margin-bottom: 10px;
+}

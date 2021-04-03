@@ -1,0 +1,15 @@
+---
+- name: install, configure, and start medienhaus stack
+  hosts: medienhaus
+  roles:
+    - roles/common
+    - roles/nginx
+    - roles/postgres
+    - roles/matrix-synapse
+    - roles/element-web
+    - roles/medienhaus-backend
+    - roles/medienhaus-frontend
+  vars:
+    nginx_site: medienhaus
+    element_web_root: classroom
+    element_web_version: v1.7.24

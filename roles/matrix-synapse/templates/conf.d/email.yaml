@@ -1,0 +1,11 @@
+email:
+  smtp_host: {{ synapse_smtp_host }}
+  smtp_port: {{ synapse_smtp_port }}
+  smtp_user: "{{ synapse_smtp_user }}"
+  smtp_pass: "{{ synapse_smtp_pass }}"
+  #require_transport_security: true
+  notif_from: "{{ synapse_smtp_from }}"
+  app_name: "{{ synapse_smtp_app_name}}"
+  enable_notifs: true
+  notif_for_new_users: false
+  client_base_url: "{{ synapse_client_base_url }}"

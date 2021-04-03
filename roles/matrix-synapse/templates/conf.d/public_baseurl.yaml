@@ -1,0 +1,1 @@
+public_baseurl: https://{{ synapse_public_baseurl | default(synapse_server_name) }}/

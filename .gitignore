@@ -1,0 +1,17 @@
+.*.swp
+.DS_Store
+.vault_pass
+
+#host_vars/*
+#!host_vars/example
+
+#inventory.yml
+
+#playbooks/*
+#!playbooks/_*.yml
+#!playbooks/example.yml
+
+#roles/nginx/templates/sites/*
+#!roles/nginx/templates/sites/example
+
+#vault.yml

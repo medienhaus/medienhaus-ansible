@@ -1,0 +1,55 @@
+---
+## roles/common
+admin_contact: mail@example.com
+
+## roles/postgres
+postgres_database_user: postgres
+postgres_database_host: localhost
+
+## roles/matrix-synapse
+synapse_admin_contact: "{{ admin_contact }}"
+
+synapse_database_user: "matrix_synapse_user_{{ inventory_hostname_short }}"
+synapse_database_password: super_secret_and_very_long_random_passphrase
+synapse_database_database: "matrix_synapse_{{ inventory_hostname_short }}"
+synapse_database_host: "{{ postgres_database_host }}"
+
+synapse_smtp_host: xxx.xxx.xxx.xxx
+synapse_smtp_port: 587
+synapse_smtp_user: mail@example.com
+synapse_smtp_pass: super_secret_and_very_long_random_passphrase
+synapse_smtp_from: "{{ synapse_smtp_app_name }} <{{ synapse_smtp_user }}>"
+
+#synapse_ldap_uri: ldap://xxx.xxx.xxx.xxx:389
+#synapse_ldap_base: dc=example,dc=com
+#synapse_ldap_attribute_uid: uid
+#synapse_ldap_attribute_mail: mail
+#synapse_ldap_attribute_name: cn
+#synapse_ldap_bind_dn: cn=bind-user,dc=example,dc=com
+#synapse_ldap_bind_password: super_secret_and_very_long_random_passphrase
+
+#synapse_turn_uri: turn.example.com
+#synapse_turn_shared_secret: super_secret_and_very_long_random_passphrase
+
+synapse_registration_shared_secret: super_secret_and_very_long_random_passphrase
+
+synapse_root_user_id: medienhaus-bot
+synapse_root_user_password: super_secret_and_very_long_random_passphrase
+
+synapse_request_user_id: request-bot
+synapse_request_user_password: super_secret_and_very_long_random_passphrase
+synapse_request_room_name: dev-request
+
+synapse_support_user_id: support-bot
+synapse_support_user_password: super_secret_and_very_long_random_passphrase
+synapse_support_room_name: dev-support
+
+## roles/element-web
+element_web_jitsi_domain: jitsi.riot.im
+
+## roles/medienhaus-backend
+medienhaus_backend_request_user_id: "{{ synapse_request_user_id }}"
+medienhaus_backend_request_user_password: "{{ synapse_request_user_password }}"
+
+medienhaus_backend_support_user_id: "{{ synapse_support_user_id }}"
+medienhaus_backend_support_user_password: "{{ synapse_support_user_password }}"

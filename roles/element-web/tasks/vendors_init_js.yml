@@ -1,0 +1,7 @@
+---
+- name: inject medienhaus/ sidebar header
+  shell: "sed -i 's+r.createElement(\"aside\",{className:\"mx_LeftPanel_roomListContainer\"},+r.createElement(\"aside\",{className:\"mx_LeftPanel_roomListContainer\"},r.createElement(\"div\",{className:\"mx_LeftPanel_userHeader mx_UserMenu mx_medienhaus_header\"},r.createElement(\"div\",{className:\"mx_UserMenu_row mx_medienhaus_header_row\",\"title\":\"{{ medienhaus_frontend_name }}\",\"aria-label\":\"{{ medienhaus_frontend_name }}\"},r.createElement(\"a\",{href:\"https://{{ synapse_server_name }}/explore\",rel:\"nofollow noopener noreferrer\"},\"{{ medienhaus_frontend_name }}\"))),+g' /var/www/{{ element_web_root }}/bundles/*/vendors~init.js"
+  #shell: "sed -i 's+r.createElement(\"aside\",{className:\"mx_LeftPanel_roomListContainer\"},+r.createElement(\"aside\",{className:\"mx_LeftPanel_roomListContainer\"},r.createElement(\"div\",{className:\"mx_LeftPanel_userHeader mx_UserMenu mx_medienhaus_header\"},r.createElement(\"div\",{className:\"mx_UserMenu_row mx_medienhaus_header_row\",\"aria-label\":\"{{ medienhaus_frontend_name }}\"},r.createElement(\"a\",{href:\"https://{{ synapse_server_name }}/explore\",rel:\"nofollow noopener noreferrer\",target:\"_blank\"},\"{{ mediehaus_frontend_name }}\"),r.createElement(\"span\",null,\"😷\"))),+g' /var/www/{{ element_web_root }}/bundles/*/vendors~init.js"
+  args:
+    warn: false
+  #when: inventory_hostname_short == "medienhaus"

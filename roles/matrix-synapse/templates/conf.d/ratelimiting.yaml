@@ -1,0 +1,30 @@
+#rc_message:
+#  per_second: 0.2
+#  burst_count: 10
+
+#rc_registration:
+#  per_second: 0.17
+#  burst_count: 3
+
+#rc_login:
+#  address:
+#    per_second: 0.17
+#    burst_count: 3
+#  account:
+#    per_second: 0.17
+#    burst_count: 3
+#  failed_attempts:
+#    per_second: 0.17
+#    burst_count: 3
+
+#rc_admin_redaction:
+#  per_second: 1
+#  burst_count: 50
+
+rc_joins:
+  local:
+    per_second: 0.33
+    burst_count: 5
+  remote:
+    per_second: 0.1
+    burst_count: 5

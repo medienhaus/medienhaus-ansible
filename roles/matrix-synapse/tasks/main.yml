@@ -1,0 +1,158 @@
+---
+- name: install dependencies via defaults/main.yml
+  apt:
+    name: "{{ depends }}"
+    update_cache: yes
+
+- name: add matrix repository signing key
+  apt_key:
+    url: https://packages.matrix.org/debian/matrix-org-archive-keyring.gpg
+    id: AAF9AE843A7584B5A3E4CD2BCF45A512DE2DA058
+
+- name: add matrix repository to apt sources
+  apt_repository:
+    repo: "deb https://packages.matrix.org/debian/ {{ ansible_distribution_release }} main"
+
+- name: install matrix-synapse
+  apt:
+    name: matrix-synapse-py3
+    update_cache: yes
+
+- name: configure matrix-synapse
+  template:
+    src: "conf.d/{{ item }}"
+    dest: /etc/matrix-synapse/conf.d/
+    owner: root
+    group: root
+    mode: 0644
+  loop:
+    - admin_contact.yaml
+    - database.yaml
+    - listeners.yaml
+    - metrics.yaml
+    - presence.yaml
+    - public_baseurl.yaml
+    - ratelimiting.yaml
+    - registration.yaml
+    - report_stats.yaml
+    - server_name.yaml
+    - url_preview.yaml
+    - user_directory.yaml
+  notify: restart matrix-synapse
+
+- name: configure matrix-synapse (auto join)
+  template:
+    src: conf.d/auto_join.yaml
+    dest: /etc/matrix-synapse/conf.d/
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart matrix-synapse
+  when: synapse_auto_join_rooms is defined
+
+- name: configure matrix-synapse (email)
+  template:
+    src: conf.d/email.yaml
+    dest: /etc/matrix-synapse/conf.d/
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart matrix-synapse
+  when: synapse_smtp_host is defined
+
+- name: configure matrix-synapse (federation profile lookup)
+  template:
+    src: conf.d/federation_profile_lookup.yaml
+    dest: /etc/matrix-synapse/conf.d/
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart matrix-synapse
+  when: synapse_federation_profile_lookup is defined
+
+- name: configure matrix-synapse (federation publish rooms)
+  template:
+    src: conf.d/federation_publish_rooms.yaml
+    dest: /etc/matrix-synapse/conf.d/
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart matrix-synapse
+  when: synapse_federation_publish_rooms is defined
+
+- name: configure matrix-synapse (federation whitelist)
+  template:
+    src: conf.d/federation_whitelist.yaml
+    dest: /etc/matrix-synapse/conf.d/
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart matrix-synapse
+  when: synapse_federation_domain_whitelist is defined
+
+- name: configure matrix-synapse (federation blacklist)
+  template:
+    src: conf.d/federation_blacklist.yaml
+    dest: /etc/matrix-synapse/conf.d/
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart matrix-synapse
+  when: synapse_federation_ip_range_blacklist is defined
+
+- name: configure matrix-synapse (turn uri and secret)
+  template:
+    src: conf.d/turn.yaml
+    dest: /etc/matrix-synapse/conf.d/
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart matrix-synapse
+  when: synapse_turn_uri is defined
+
+- name: configure matrix-synapse (ldap authentication)
+  template:
+    src: conf.d/password_providers.yaml
+    dest: /etc/matrix-synapse/conf.d/
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart matrix-synapse
+  when: inventory_hostname_short == "medienhaus"
+
+- name: configure matrix-synapse (media store)
+  template:
+    src: conf.d/media_store.yaml
+    dest: /etc/matrix-synapse/conf.d/
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart matrix-synapse
+  when: inventory_hostname_short == "medienhaus"
+
+- name: configure matrix-synapse (alias and publication rules)
+  template:
+    src: "conf.d/{{ item }}"
+    dest: /etc/matrix-synapse/conf.d/
+    owner: root
+    group: root
+    mode: 0644
+  loop:
+    - alias_creation_rules.yaml
+    - room_list_publication_rules.yaml
+  notify: restart matrix-synapse
+  when: inventory_hostname_short == "medienhaus"
+
+- name: create postgres user and database
+  include_tasks: postgres.yml
+
+
+- name: restart matrix-synapse
+  systemd:
+    name: matrix-synapse
+    daemon_reload: yes
+    enabled: yes
+    state: restarted
+
+- name: register root and bot users, create rooms, get access_tokens and room_ids
+  include_tasks: register_users.yml

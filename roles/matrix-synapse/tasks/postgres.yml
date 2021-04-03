@@ -1,0 +1,20 @@
+---
+- name: "add database user {{ synapse_database_user }}"
+  postgresql_user:
+    name: "{{ synapse_database_user }}"
+    password: "{{ synapse_database_password }}"
+  become: yes
+  become_user: "{{ postgres_database_user }}"
+  #delegate_to: "{{ postgres_database_host }}"
+
+- name: "create database {{ synapse_database_database }}"
+  postgresql_db:
+    name: "{{ synapse_database_database }}"
+    owner: "{{ synapse_database_user }}"
+    encoding: UTF-8
+    lc_collate: C
+    lc_ctype: C
+    template: template0
+  become: yes
+  become_user: "{{ postgres_database_user }}"
+  #delegate_to: "{{ postgres_database_host }}"

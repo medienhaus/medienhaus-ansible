@@ -1,0 +1,31 @@
+---
+## roles/common
+unattended_upgrades: true
+
+## roles/matrix-synapse
+synapse_server_name: medienhaus.udk-berlin.de
+
+synapse_auto_join_rooms:
+  - "#udk-announce:{{ synapse_server_name }}"
+  - "#udk-welcome:{{ synapse_server_name }}"
+
+synapse_federation_listener: true
+synapse_federation_profile_lookup: false
+synapse_federation_publish_rooms: false
+#synapse_federation_domain_whitelist:
+#  - "{{ synapse_server_name }}"
+#synapse_federation_ip_range_blacklist:
+#  - xxx.xxx.xxx.xxx/xx
+
+synapse_smtp_app_name: medienhaus/classroom
+synapse_client_base_url: "https://{{ synapse_public_baseurl | default(synapse_server_name) }}/{{ element_web_root }}"
+
+## roles/element-web
+element_web_title: medienhaus/classroom
+
+## roles/medienhaus_backend
+medienhaus_backend_api_endpoint: api
+
+## roles/medienhaus_frontend
+medienhaus_frontend_name: medienhaus/
+#medienhaus_element_name: /classroom

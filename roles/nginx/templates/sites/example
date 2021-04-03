@@ -1,0 +1,60 @@
+server {
+  listen 80;
+  server_name {{ ansible_fqdn }};
+  return 301 https://$server_name$request_uri;
+}
+
+server {
+  listen 443 ssl;
+  server_name {{ ansible_fqdn }};
+
+  #ssl_certificate /etc/letsencrypt/live/{{ ansible_fqdn }}/fullchain.pem;
+  #ssl_certificate_key /etc/letsencrypt/live/{{ ansible_fqdn }}/privkey.pem;
+
+  root /var/www/html;
+  index index.html;
+
+  location / {
+    try_files $uri/ $uri /index.html =404;
+  }
+
+  location ~* ^(\/_matrix|\/_synapse\/client) {
+    proxy_pass http://127.0.0.1:8008;
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    client_max_body_size 25M;
+  }
+
+  location /.well-known/matrix/client {
+    add_header Access-Control-Allow-Origin *;
+    add_header Content-Type application/json;
+  }
+
+  location /{{ medienhaus_backend_api_endpoint }}/ {
+    proxy_pass http://127.0.0.1:3001;
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header X-Forwarded-Proto $scheme;
+  }
+
+  location /{{ element_web_root | default('element') }} {
+    root /var/www;
+    index index.html;
+  }
+}
+
+server {
+  listen 8448 ssl default_server;
+  server_name {{ ansible_fqdn }};
+
+  #ssl_certificate /etc/letsencrypt/live/{{ ansible_fqdn }}/fullchain.pem;
+  #ssl_certificate_key /etc/letsencrypt/live/{{ ansible_fqdn }}/privkey.pem;
+
+  location / {
+    proxy_pass http://127.0.0.1:8008;
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header X-Forwarded-Proto $scheme;
+  }
+}

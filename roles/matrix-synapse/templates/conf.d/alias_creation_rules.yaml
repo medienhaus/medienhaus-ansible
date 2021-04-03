@@ -1,0 +1,9 @@
+alias_creation_rules:
+  - user_id: "@{{ synapse_root_user_id }}:{{ synapse_server_name }}"
+    alias: "*"
+    room_id: "*"
+    action: allow
+  - user_id: "*"
+    alias: "#_*:{{ synapse_server_name }}"
+    room_id: "*"
+    action: allow

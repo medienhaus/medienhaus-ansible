@@ -1,0 +1,4 @@
+federation_domain_whitelist:
+{% for federation_domain in synapse_federation_domain_whitelist %}
+  - {{ federation_domain }}
+{% endfor %}

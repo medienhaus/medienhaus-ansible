@@ -1,0 +1,137 @@
+{
+  "default_server_config": {
+    "m.homeserver": {
+      "base_url": "https://{{ synapse_public_baseurl | default(synapse_server_name) }}",
+      "server_name": "{{ synapse_server_name }}"
+    },
+      "m.identity_server": {
+      "base_url": ""
+    }
+  },
+  "brand": "{{ element_web_title }}",
+  "bug_report_endpoint_url": "https://element.io/bugreports/submit",
+  "default_federate": false,
+  "default_theme": "custom-Medienhaus Day",
+  "defaultCountryCode": "DE",
+  "disable_3pid_login": true,
+  "disable_custom_urls": true,
+  "disable_guests": true,
+  "disable_login_language_selector": false,
+  "integrations_ui_url": "https://scalar.vector.im/",
+  "integrations_rest_url": "https://scalar.vector.im/api",
+  "integrations_widgets_urls": [
+    "https://scalar.vector.im/_matrix/integrations/v1",
+    "https://scalar.vector.im/api",
+    "https://scalar-staging.vector.im/_matrix/integrations/v1",
+    "https://scalar-staging.vector.im/api",
+    "https://scalar-staging.riot.im/scalar/api"
+  ],
+  "enable_presence_by_hs_url": {
+    "https://{{ synapse_public_baseurl | default(synapse_server_name) }}": false
+  },
+  "jitsi": {
+    "preferredDomain": "{{ element_web_jitsi_domain }}"
+  },
+  "mobileGuideToast": true,
+  "permalinkPrefix": "https://{{ synapse_public_baseurl | default(synapse_server_name) }}/{{ element_web_root }}",
+  "roomDirectory": {
+    "servers": [
+      "{{ synapse_server_name }}"
+    ]
+  },
+  "settingDefaults": {
+    "notificationsEnabled": false,
+    "notificationBodyEnabled": false,
+    "notificationSound": false,
+    "audioNotificationsEnabled": false,
+    "breadcrumbs": false,
+    "MessageComposerInput.autoReplaceEmoji": false,
+    "MessageComposerInput.suggestEmoji": false,
+    "MessageComposerInput.dontSuggestEmoji": true,
+    "sendTypingNotifications": false,
+    "dontSendTypingNotifications": true,
+    "showTypingNotifications": false,
+    "autoplayGifsAndVideos": false,
+    "urlPreviewsEnabled": false,
+    "TextualBody.enableBigEmoji": false,
+    "TextualBody.disableBigEmoji": true,
+    "showReadReceipts": false,
+    "hideReadReceipts": true,
+    "showTwelveHourTimestamps": false,
+    "alwaysShowTimestamps": true,
+    "showRedactions": false,
+    "hideRedactions": true,
+    "enableSyntaxHighlightLanguageDetection": false,
+    "showJoinLeaves": false,
+    "hideJoinLeaves": true,
+    "showAvatarChanges": false,
+    "hideAvatarChanges": true,
+    "showDisplaynameChanges": false,
+    "hideDisplaynameChanges": true,
+    "showImages": true,
+    "Pill.shouldShowPillAvatar": false,
+    "Pill.shouldHidePillAvatar": true,
+    "TagPanel.enableTagPanel": false,
+    "TagPanel.disableTagPanel": true,
+    "promptBeforeInviteUnknownUsers": true,
+    "UIFeature.urlPreviews": false,
+    "UIFeature.feedback": false,
+    "UIFeature.voip": true,
+    "UIFeature.widgets": true,
+    "UIFeature.flair": false,
+    "UIFeature.communities": false,
+    "UIFeature.advancedSettings": false,
+    "UIFeature.shareQrCode": false,
+    "UIFeature.shareSocial": false,
+    "UIFeature.identityServer": false,
+    "UIFeature.thirdPartyId": true,
+    "UIFeature.registration": true,
+    "UIFeature.passwordReset": true,
+    "UIFeature.deactivate": true,
+    "UIFeature.advancedEncryption": false,
+    "UIFeature.roomHistorySettings": true,
+    "custom_themes": [
+      {
+        "name": "Medienhaus Day",
+        "is_dark": false,
+        "colors": {
+          "accent-color": "#0f0f0f",
+          "primary-color": "#0f0f0f",
+          "sidebar-color": "#f5f5f5",
+          "warning-color": "#ff4b55",
+          "roomlist-background-color": "#ffffff",
+          "roomlist-highlights-color": "#f0f0f0",
+          "roomlist-separator-color": "#f0f0f0",
+          "roomlist-text-color": "#0f0f0f",
+          "roomlist-text-secondary-color": "#0f0f0f",
+          "timeline-background-color": "#ffffff",
+          "timeline-highlights-color": "#fff8e3",
+          "timeline-text-color": "#0f0f0f",
+          "timeline-text-secondary-color": "#0f0f0f",
+          "avatar-background-colors": ["#0f0f0f", "#0f0f0f", "#0f0f0f"],
+          "username-colors": ["#0f0f0f", "#0f0f0f", "#0f0f0f", "#0f0f0f", "#0f0f0f", "#0f0f0f", "#0f0f0f", "#0f0f0f"]
+        }
+      }, {
+        "name": "Medienhaus Night",
+        "is_dark": true,
+        "colors": {
+          "accent-color": "#3f3f3f",
+          "primary-color": "#f0f0f0",
+          "sidebar-color": "#1a1a1a",
+          "warning-color": "#ff4b55",
+          "roomlist-background-color": "#0f0f0f",
+          "roomlist-highlights-color": "#1f1f1f",
+          "roomlist-separator-color": "#1f1f1f",
+          "roomlist-text-color": "#f0f0f0",
+          "roomlist-text-secondary-color": "#f0f0f0",
+          "timeline-background-color": "#0f0f0f",
+          "timeline-highlights-color": "#1a1f1c",
+          "timeline-text-color": "#f0f0f0",
+          "timeline-text-secondary-color": "#f0f0f0",
+          "avatar-background-colors": ["#1f1f1f", "#1f1f1f", "#1f1f1f"],
+          "username-colors": ["#f0f0f0", "#f0f0f0", "#f0f0f0", "#f0f0f0", "#f0f0f0", "#f0f0f0", "#f0f0f0", "#f0f0f0"]
+        }
+      }
+    ]
+  }
+}

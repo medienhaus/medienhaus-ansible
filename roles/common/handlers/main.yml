@@ -1,0 +1,21 @@
+---
+- name: restart sshd
+  systemd:
+    name: sshd
+    daemon_reload: yes
+    enabled: yes
+    state: restarted
+
+- name: start unattended-upgrades
+  systemd:
+    name: unattended-upgrades
+    daemon_reload: yes
+    enabled: yes
+    state: started
+
+- name: restart unattended-upgrades
+  systemd:
+    name: unattended-upgrades
+    daemon_reload: yes
+    enabled: yes
+    state: restarted

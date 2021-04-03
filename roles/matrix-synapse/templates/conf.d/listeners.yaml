@@ -1,0 +1,14 @@
+listeners:
+  - port: 8008
+    tls: false
+    type: http
+    x_forwarded: true
+    bind_addresses: ["127.0.0.1"]
+
+    resources:
+{% if synapse_federation_listener %}
+      - names: [client, federation]
+{% else %}
+      - names: [client]
+{% endif %}
+        compress: false

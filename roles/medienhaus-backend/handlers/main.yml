@@ -1,0 +1,7 @@
+---
+- name: restart medienhaus-backend
+  systemd:
+    name: medienhaus-backend
+    daemon_reload: yes
+    enabled: yes
+    state: restarted

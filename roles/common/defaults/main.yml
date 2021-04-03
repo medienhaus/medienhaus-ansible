@@ -1,0 +1,8 @@
+---
+depends:
+  - curl
+  - fail2ban
+  - git
+  - net-tools
+  - rsync
+  - vim

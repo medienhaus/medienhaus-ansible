@@ -1,0 +1,40 @@
+---
+- name: add nodejs apt key
+  apt_key:
+    url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+    state: present
+
+- name: add nodejs 15.x repository
+  apt_repository:
+    repo: deb https://deb.nodesource.com/node_15.x focal main
+    update_cache: yes
+
+- name: git clone medienhaus-frontend
+  git:
+    repo: https://github.com/medienhaus/medienhaus-frontend
+    dest: /opt/medienhaus-frontend
+    force: yes
+    update: yes
+    version: "main"
+
+- name: configure medienhaus-frontend
+  template:
+    src: .env
+    dest: /opt/medienhaus-frontend/.env
+    owner: root
+    group: root
+    mode: 0644
+
+- name: install requirements via package.json
+  command: npm clean-install
+  args:
+    chdir: /opt/medienhaus-frontend
+
+- name: build medienhaus-frontend
+  command: npm run build
+  args:
+    chdir: /opt/medienhaus-frontend
+
+- name: sync /opt/medienhaus-frontend/build/ with /var/www/html
+  command: rsync -avvr --delete /opt/medienhaus-frontend/build/ /var/www/html
+  notify: restart nginx

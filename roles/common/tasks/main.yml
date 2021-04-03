@@ -1,0 +1,35 @@
+---
+- name: apt update && apt upgrade
+  apt:
+    update_cache: yes
+    upgrade: dist
+
+- name: install dependencies via defaults/main.yml
+  apt:
+    name: "{{ depends }}"
+    update_cache: yes
+
+#- name: secure sshd
+#  lineinfile:
+#    path: /etc/ssh/sshd_config
+#    regexp: '^#PermitRootLogin'
+#    line: 'PermitRootLogin prohibit-password'
+#  notify: restart sshd
+
+#- name: secure sshd
+#  lineinfile:
+#    path: /etc/ssh/sshd_config
+#    regexp: '^#PubkeyAuthentication'
+#    line: 'PubkeyAuthentication yes'
+#  notify: restart sshd
+
+- name: secure sshd
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#PasswordAuthentication'
+    line: 'PasswordAuthentication no'
+  notify: restart sshd
+
+- name: install and configure unattended upgrades
+  include_tasks: unattended_upgrades.yml
+  when: unattended_upgrades

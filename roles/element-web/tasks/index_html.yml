@@ -1,0 +1,118 @@
+---
+- name: remove title
+  lineinfile:
+    path: "/var/www/{{ element_web_root | default('element') }}/index.html"
+    regexp: '<title>'
+    state: absent
+
+- name: remove apple-touch-icons
+  lineinfile:
+    path: "/var/www/{{ element_web_root | default('element') }}/index.html"
+    regexp: 'rel="apple-touch-icon"'
+    state: absent
+
+- name: remove manifest
+  lineinfile:
+    path: "/var/www/{{ element_web_root | default('element') }}/index.html"
+    regexp: 'rel="manifest"'
+    state: absent
+
+- name: remove shortcut icon
+  lineinfile:
+    path: "/var/www/{{ element_web_root | default('element') }}/index.html"
+    regexp: 'rel="shortcut icon"'
+    state: absent
+
+- name: remove apple-mobile-web-app-title
+  lineinfile:
+    path: "/var/www/{{ element_web_root | default('element') }}/index.html"
+    regexp: 'name="apple-mobile-web-app-title"'
+    state: absent
+
+- name: remove application-name
+  lineinfile:
+    path: "/var/www/{{ element_web_root | default('element') }}/index.html"
+    regexp: 'name="application-name"'
+    state: absent
+
+- name: remove msapplication-TileColor
+  lineinfile:
+    path: "/var/www/{{ element_web_root | default('element') }}/index.html"
+    regexp: 'name="msapplication-TileColor"'
+    state: absent
+
+- name: remove msapplication-TileImage
+  lineinfile:
+    path: "/var/www/{{ element_web_root | default('element') }}/index.html"
+    regexp: 'name="msapplication-TileImage"'
+    state: absent
+
+- name: remove msapplication-config
+  lineinfile:
+    path: "/var/www/{{ element_web_root | default('element') }}/index.html"
+    regexp: 'name="msapplication-config"'
+    state: absent
+
+- name: remove theme-color
+  lineinfile:
+    path: "/var/www/{{ element_web_root | default('element') }}/index.html"
+    regexp: 'name="theme-color"'
+    state: absent
+
+- name: remove og:image
+  lineinfile:
+    path: "/var/www/{{ element_web_root | default('element') }}/index.html"
+    regexp: 'property="og:image"'
+    state: absent
+
+- name: include description
+  lineinfile:
+    path: "/var/www/{{ element_web_root | default('element') }}/index.html"
+    insertafter: 'charset="utf-8"'
+    line: '    <meta name="description" content="Berlin University of the Arts’ free and open-source environment for digital learning, teaching, and collaboration.">'
+
+- name: include keywords
+  lineinfile:
+    path: "/var/www/{{ element_web_root | default('element') }}/index.html"
+    insertafter: 'name="description"'
+    line: '    <meta name="keywords" content="medienhaus, free, open-source, berlin university of the arts, universitaet der kuenste berlin, udk, berlin, matrix, learning, teaching, collaboration">'
+
+- name: include og:image
+  lineinfile:
+    path: "/var/www/{{ element_web_root | default('element') }}/index.html"
+    insertbefore: 'rel="stylesheet"'
+    firstmatch: yes
+    line: '    <meta property="og:image" content="./favicon.png">'
+
+- name: include icon
+  lineinfile:
+    path: "/var/www/{{ element_web_root | default('element') }}/index.html"
+    insertbefore: 'rel="stylesheet"'
+    firstmatch: yes
+    line: '    <link rel="icon" href="favicon.ico">'
+
+- name: include apple-touch-icon
+  lineinfile:
+    path: "/var/www/{{ element_web_root | default('element') }}/index.html"
+    insertbefore: 'rel="stylesheet"'
+    firstmatch: yes
+    line: '    <link rel="apple-touch-icon" href="favicon.png">'
+
+- name: include mask-icon
+  lineinfile:
+    path: "/var/www/{{ element_web_root | default('element') }}/index.html"
+    insertbefore: 'rel="stylesheet"'
+    firstmatch: yes
+    line: '    <link rel="mask-icon" href="favicon.svg" color="#000000">'
+
+- name: include custom.css
+  lineinfile:
+    path: "/var/www/{{ element_web_root | default('element') }}/index.html"
+    insertafter: 'rel="stylesheet"'
+    line: '    <link rel="stylesheet" type="text/css" href="./custom.css">'
+
+- name: include title
+  lineinfile:
+    path: "/var/www/{{ element_web_root | default('element') }}/index.html"
+    insertafter: 'rel="stylesheet"'
+    line: '    <title>{{ element_web_title }}</title>'

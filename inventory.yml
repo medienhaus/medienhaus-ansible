@@ -1,0 +1,19 @@
+---
+all:
+  hosts:
+    dev:
+      ansible_host: 116.203.242.217
+      ansible_port: 22
+    medienhaus:
+      ansible_host: 194.95.202.121
+      ansible_port: 22
+  children:
+    element:
+      hosts:
+        medienhaus:
+    matrix:
+      hosts:
+        medienhaus:
+    postgres:
+      hosts:
+        medienhaus:

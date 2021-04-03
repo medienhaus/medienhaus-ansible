@@ -1,0 +1,78 @@
+---
+- name: download element tarball
+  get_url:
+    url: "https://github.com/vector-im/element-web/releases/download/{{ element_web_version }}/element-{{ element_web_version }}.tar.gz"
+    dest: /var/www/
+
+- name: unarchive element tarball
+  unarchive:
+    src: "/var/www/element-{{ element_web_version }}.tar.gz"
+    dest: /var/www/
+    owner: root
+    group: root
+    remote_src: yes
+
+- name: delete element tarball
+  file:
+    path: "/var/www/element-{{ element_web_version }}.tar.gz"
+    state: absent
+
+- name: delete /var/www/element_web_root
+  file:
+    path: "/var/www/{{ element_web_root | default('element') }}"
+    state: absent
+
+- name: rename versioned element directory to unversioned element
+  command: "mv /var/www/element-{{ element_web_version }} /var/www/{{ element_web_root | default('element') }}"
+  notify: restart nginx
+
+- name: configure element
+  template:
+    src: config.json
+    dest: "/var/www/{{ element_web_root | default('element') }}/config.json"
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart nginx
+
+- name: customize element
+  copy:
+    src: "files/css/{{ item }}"
+    dest: "/var/www/{{ element_web_root | default('element') }}/"
+    owner: root
+    group: root
+    mode: 0644
+  loop:
+    - custom.css
+    - fonts.css
+  notify: restart nginx
+
+- name: copy favicons to /var/www/element_web_root/
+  copy:
+    src: "files/favicons/{{ item }}"
+    dest: "/var/www/{{ element_web_root | default('element') }}/"
+    owner: root
+    group: root
+    mode: 0644
+  loop:
+    - favicon.ico
+    - favicon.png
+    - favicon.svg
+  notify: restart nginx
+
+- name: sync fonts to /var/www/element_web_root/fonts/
+  synchronize:
+    src: fonts/
+    dest: "/var/www/{{ element_web_root | default('element') }}/fonts"
+    archive: no
+    delete: no
+    recursive: yes
+    rsync_opts:
+      - --exclude=Twemoji_Mozilla
+  notify: restart nginx
+
+- name: configure /var/www/element_web_root/index.html
+  include_tasks: index_html.yml
+
+- name: configure /var/www/element_web_root/build/$HASH/vendors~init.js
+  include_tasks: vendors_init_js.yml

@@ -1,0 +1,1 @@
+allow_public_rooms_over_federation: {{ synapse_federation_publish_rooms|lower }}
