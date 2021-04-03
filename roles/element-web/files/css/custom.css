@@ -150,6 +150,12 @@ code a, pre a, kbd a, samp a,
   color: var(--primary-color);
 }
 
+/* file upload colors */
+.mx_MFileBody_info {
+  background-color: var(--roomlist-highlights-color);
+  color: var(--timeline-text-color);
+}
+
 /* icon button colors */
 .mx_AppTileMenuBar_iconButton,
 .mx_Dialog_cancelButton,
@@ -164,6 +170,7 @@ code a, pre a, kbd a, samp a,
 .mx_cryptoEvent.mx_cryptoEvent_icon::after,
 .mx_cryptoEvent.mx_cryptoEvent_icon::before,
 .mx_EventTile_e2eIcon_unauthenticated::after,
+.mx_MFileBody_info .mx_MFileBody_info_icon::before,
 .mx_BaseCard .mx_BaseCard_Group .mx_BaseCard_Button::after,
 .mx_RoomSummaryCard .mx_RoomSummaryCard_aboutGroup .mx_RoomSummaryCard_Button::before,
 .mx_BaseCard .mx_BaseCard_header .mx_BaseCard_back::before, .mx_BaseCard .mx_BaseCard_header .mx_BaseCard_close::before {
