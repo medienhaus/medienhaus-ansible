@@ -1,0 +1,9 @@
+[defaults]
+ask_pass = False
+interpreter_python = auto
+inventory = ./inventories/example/inventory.yml
+pipelining = True
+private_key_file = ./id_rsa
+remote_tmp = /tmp
+remote_user = root
+vault_password_file = ./.vault_pass

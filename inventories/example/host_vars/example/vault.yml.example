@@ -1,0 +1,68 @@
+---
+## roles/common
+vault_admin_contact: mail@example.com
+
+## roles/postgres
+vault_postgres_database_user: postgres
+#vault_postgres_database_host: localhost
+vault_postgres_database_host: "{{ hostvars['example']['ansible_host'] }}"
+
+## roles/matrix-synapse
+vault_synapse_admin_contact: "{{ admin_contact }}"
+
+vault_synapse_database_user: "matrix_synapse_user_{{ inventory_hostname_short }}"
+vault_synapse_database_password: super_secret_and_very_long_random_passphrase
+vault_synapse_database_database: "matrix_synapse_{{ inventory_hostname_short }}"
+vault_synapse_database_host: "{{ postgres_database_host }}"
+
+#vault_synapse_ldap_uri: ldap://ldap.example.com:389
+vault_synapse_ldap_uri: ldaps://ldap.example.com:636
+vault_synapse_ldap_base: dc=example,dc=com
+vault_synapse_ldap_attribute_uid: uid
+vault_synapse_ldap_attribute_mail: mail
+vault_synapse_ldap_attribute_name: cn
+vault_synapse_ldap_bind_dn: cn=bind-user,dc=example,dc=com
+vault_synapse_ldap_bind_password: super_secret_and_very_long_random_passphrase
+
+vault_synapse_registration_shared_secret: super_secret_and_very_long_random_passphrase
+
+vault_synapse_smtp_host: smtp.example.com
+vault_synapse_smtp_port: 587
+vault_synapse_smtp_user: mail@example.com
+vault_synapse_smtp_pass: super_secret_and_very_long_random_passphrase
+vault_synapse_smtp_from: "{{ synapse_smtp_app_name }} <{{ synapse_smtp_user }}>"
+
+#vault_synapse_turn_uri: turn://turn.example.com:3478
+vault_synapse_turn_uri: turns://turn.example.com:443
+vault_synapse_turn_shared_secret: super_secret_and_very_long_random_passphrase
+
+vault_synapse_root_user_id: medienhaus-bot
+vault_synapse_root_user_password: super_secret_and_very_long_random_passphrase
+
+vault_synapse_feedback_user_id: feedback-bot
+vault_synapse_feedback_user_password: super_secret_and_very_long_random_passphrase
+vault_synapse_feedback_room_name: dev-feedback
+
+vault_synapse_request_user_id: request-bot
+vault_synapse_request_user_password: super_secret_and_very_long_random_passphrase
+vault_synapse_request_room_name: dev-request
+
+vault_synapse_support_user_id: support-bot
+vault_synapse_support_user_password: super_secret_and_very_long_random_passphrase
+vault_synapse_support_room_name: dev-support
+
+## roles/medienhaus-backend
+vault_medienhaus_backend_uri: example.com
+vault_medienhaus_backend_api: api
+
+vault_medienhaus_backend_feedback_user_id: "{{ synapse_feedback_user_id }}"
+vault_medienhaus_backend_feedback_user_password: "{{ synapse_feedback_user_password }}"
+
+vault_medienhaus_backend_request_user_id: "{{ synapse_request_user_id }}"
+vault_medienhaus_backend_request_user_password: "{{ synapse_request_user_password }}"
+
+vault_medienhaus_backend_root_user_id: "{{ synapse_root_user_id }}"
+vault_medienhaus_backend_root_user_password: "{{ synapse_root_user_password }}"
+
+vault_medienhaus_backend_support_user_id: "{{ synapse_support_user_id }}"
+vault_medienhaus_backend_support_user_password: "{{ synapse_support_user_password }}"

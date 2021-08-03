@@ -1,0 +1,9 @@
+database:
+  name: psycopg2
+  args:
+    user: {{ synapse_database_user }}
+    password: {{ synapse_database_password }}
+    database: {{ synapse_database_database }}
+    host: {{ synapse_database_host }}
+    cp_min: 5
+    cp_max: 10

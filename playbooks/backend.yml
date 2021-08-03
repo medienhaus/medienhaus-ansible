@@ -1,0 +1,6 @@
+
+- name: install, configure, and start backend stack
+  hosts: backend
+  roles:
+    - roles/common
+    - roles/medienhaus-backend

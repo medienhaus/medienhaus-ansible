@@ -1,0 +1,188 @@
+---
+- name: register root user
+  command: "register_new_matrix_user -k {{ synapse_registration_shared_secret }} -u {{ synapse_root_user_id }} -p {{ synapse_root_user_password }} --admin http://localhost:8008"
+  register: command_result
+  failed_when: '"Success!" not in command_result.stdout and "User ID already taken." not in command_result.stdout'
+  when: synapse_root_user_id is defined
+
+- name: register feedback-bot user
+  command: "register_new_matrix_user -k {{ synapse_registration_shared_secret }} -u {{ synapse_feedback_user_id }} -p {{ synapse_feedback_user_password }} --no-admin http://localhost:8008"
+  register: command_result
+  failed_when: '"Success!" not in command_result.stdout and "User ID already taken." not in command_result.stdout'
+  when: synapse_feedback_user_id is defined
+
+- name: register request-bot user
+  command: "register_new_matrix_user -k {{ synapse_registration_shared_secret }} -u {{ synapse_request_user_id }} -p {{ synapse_request_user_password }} --no-admin http://localhost:8008"
+  register: command_result
+  failed_when: '"Success!" not in command_result.stdout and "User ID already taken." not in command_result.stdout'
+  when: synapse_request_user_id is defined
+
+- name: register support-bot user
+  command: "register_new_matrix_user -k {{ synapse_registration_shared_secret }} -u {{ synapse_support_user_id }} -p {{ synapse_support_user_password }} --no-admin http://localhost:8008"
+  register: command_result
+  failed_when: '"Success!" not in command_result.stdout and "User ID already taken." not in command_result.stdout'
+  when: synapse_support_user_id is defined
+
+- name: log in root user
+  uri:
+    url: "https://{{ synapse_public_baseurl | default(synapse_server_name) }}/_matrix/client/r0/login"
+    method: POST
+    body: "{{ lookup('template', 'api_login_root.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json"
+  register: json_response_login_root
+  when: synapse_root_user_id is defined
+
+- name: create feedback room
+  uri:
+    url: "https://{{ synapse_public_baseurl | default(synapse_server_name) }}/_matrix/client/r0/createRoom"
+    method: POST
+    body: "{{ lookup('template', 'api_create_room_feedback.json') }}"
+    body_format: json
+    headers:
+      Authorization: "Bearer {{ json_response_login_root.json.access_token }}"
+      Content-Type: "application/json"
+  register: json_response_room_feedback
+  failed_when: 'json_response_room_feedback.json.room_id is not defined and "Room alias already taken" not in json_response_room_feedback.json.error'
+  when: synapse_feedback_room_name is defined
+
+- name: resolve feedback room_id
+  uri:
+    url: "https://{{ synapse_public_baseurl | default(synapse_server_name) }}/_matrix/client/r0/directory/room/%23{{ synapse_feedback_room_name }}%3A{{ synapse_server_name }}"
+    method: GET
+    headers:
+      Content-Type: "application/json"
+  register: json_response_room_feedback
+  when: synapse_feedback_room_name is defined
+
+- name: create request room
+  uri:
+    url: "https://{{ synapse_public_baseurl | default(synapse_server_name) }}/_matrix/client/r0/createRoom"
+    method: POST
+    body: "{{ lookup('template', 'api_create_room_request.json') }}"
+    body_format: json
+    headers:
+      Authorization: "Bearer {{ json_response_login_root.json.access_token }}"
+      Content-Type: "application/json"
+  register: json_response_room_request
+  failed_when: 'json_response_room_request.json.room_id is not defined and "Room alias already taken" not in json_response_room_request.json.error'
+  when: synapse_request_room_name is defined
+
+- name: resolve request room_id
+  uri:
+    url: "https://{{ synapse_public_baseurl | default(synapse_server_name) }}/_matrix/client/r0/directory/room/%23{{ synapse_request_room_name }}%3A{{ synapse_server_name }}"
+    method: GET
+    headers:
+      Content-Type: "application/json"
+  register: json_response_room_request
+  when: synapse_request_room_name is defined
+
+- name: create support room
+  uri:
+    url: "https://{{ synapse_public_baseurl | default(synapse_server_name) }}/_matrix/client/r0/createRoom"
+    method: POST
+    body: "{{ lookup('template', 'api_create_room_support.json') }}"
+    body_format: json
+    headers:
+      Authorization: "Bearer {{ json_response_login_root.json.access_token }}"
+      Content-Type: "application/json"
+  register: json_response_room_support
+  failed_when: 'json_response_room_support.json.room_id is not defined and "Room alias already taken" not in json_response_room_support.json.error'
+  when: synapse_support_room_name is defined
+
+- name: resolve support room_id
+  uri:
+    url: "https://{{ synapse_public_baseurl | default(synapse_server_name) }}/_matrix/client/r0/directory/room/%23{{ synapse_support_room_name }}%3A{{ synapse_server_name }}"
+    method: GET
+    headers:
+      Content-Type: "application/json"
+  register: json_response_room_support
+  when: synapse_support_room_name is defined
+
+- name: log in feedback user
+  uri:
+    url: "https://{{ synapse_public_baseurl | default(synapse_server_name) }}/_matrix/client/r0/login"
+    method: POST
+    body: "{{ lookup('template', 'api_login_feedback.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json"
+  register: json_response_login_feedback
+  when: synapse_feedback_user_id is defined
+
+# TODO or unnecessary ?!
+#- name: save synapse_feedback_user_access_token to host_vars/main.yml
+#  lineinfile:
+#    path: "host_vars/{{ ansible_hostname_short }}/tmp.yml"
+#    regexp: 'synapse_feedback_user_access_token: '
+#    line: 'synapse_feedback_user_access_token: {{ json_response_login_feedback.json.access_token }}'
+#  delegate_to: localhost
+#  when: synapse_feedback_user_id is defined
+
+- name: accept invitation to feedback room and join
+  uri:
+    url: "https://{{ synapse_public_baseurl | default(synapse_server_name) }}/_matrix/client/r0/join/%23{{ synapse_feedback_room_name }}%3A{{ synapse_server_name }}"
+    method: POST
+    headers:
+      Authorization: "Bearer {{ json_response_login_feedback.json.access_token }}"
+      Content-Type: "application/json"
+  when: synapse_feedback_user_id is defined
+
+- name: log in request user
+  uri:
+    url: "https://{{ synapse_public_baseurl | default(synapse_server_name) }}/_matrix/client/r0/login"
+    method: POST
+    body: "{{ lookup('template', 'api_login_request.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json"
+  register: json_response_login_request
+  when: synapse_request_user_id is defined
+
+# TODO or unnecessary ?!
+#- name: save synapse_request_user_access_token to host_vars/main.yml
+#  lineinfile:
+#    path: "host_vars/{{ ansible_hostname_short }}/tmp.yml"
+#    regexp: 'synapse_request_user_access_token: '
+#    line: 'synapse_request_user_access_token: {{ json_response_login_request.json.access_token }}'
+#  delegate_to: localhost
+#  when: synapse_request_user_id is defined
+
+- name: accept invitation to request room and join
+  uri:
+    url: "https://{{ synapse_public_baseurl | default(synapse_server_name) }}/_matrix/client/r0/join/%23{{ synapse_request_room_name }}%3A{{ synapse_server_name }}"
+    method: POST
+    headers:
+      Authorization: "Bearer {{ json_response_login_request.json.access_token }}"
+      Content-Type: "application/json"
+  when: synapse_request_user_id is defined
+
+- name: log in support user
+  uri:
+    url: "https://{{ synapse_public_baseurl | default(synapse_server_name) }}/_matrix/client/r0/login"
+    method: POST
+    body: "{{ lookup('template', 'api_login_support.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json"
+  register: json_response_login_support
+  when: synapse_support_user_id is defined
+
+# TODO or unnecessary ?!
+#- name: save synapse_support_user_access_token to host_vars/main.yml
+#  lineinfile:
+#    path: "host_vars/{{ ansible_hostname_short }}/tmp.yml"
+#    regexp: 'synapse_support_user_access_token: '
+#    line: 'synapse_support_user_access_token: {{ json_response_login_support.json.access_token }}'
+#  delegate_to: localhost
+#  when: synapse_support_user_id is defined
+
+- name: accept invitation to support room and join
+  uri:
+    url: "https://{{ synapse_public_baseurl | default(synapse_server_name) }}/_matrix/client/r0/join/%23{{ synapse_support_room_name }}%3A{{ synapse_server_name }}"
+    method: POST
+    headers:
+      Authorization: "Bearer {{ json_response_login_support.json.access_token }}"
+      Content-Type: "application/json"
+  when: synapse_support_user_id is defined

@@ -1,0 +1,14 @@
+{
+  "m.homeserver": {
+    "base_url": "https://{{ synapse_public_baseurl | default(synapse_server_name) }}"
+  },
+  "m.identity_server": {
+    "base_url": ""
+  },
+  "im.vector.riot.jitsi": {
+    "preferredDomain": "{{ element_web_jitsi_domain }}"
+  },
+  "io.element.e2ee": {
+    "default": false
+  }
+}

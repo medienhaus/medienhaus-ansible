@@ -1,0 +1,131 @@
+/* Inter */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./fonts/Inter/Inter-Regular.woff2") format("woff2"),
+       url("./fonts/Inter/Inter-Regular.woff") format("woff");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./fonts/Inter/Inter-RegularItalic.woff2") format("woff2"),
+       url("./fonts/Inter/Inter-RegularItalic.woff") format("woff");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("./fonts/Inter/Inter-Medium.woff2") format("woff2"),
+       url("./fonts/Inter/Inter-Medium.woff") format("woff");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url("./fonts/Inter/Inter-MediumItalic.woff2") format("woff2"),
+       url("./fonts/Inter/Inter-MediumItalic.woff") format("woff");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("./fonts/Inter/Inter-SemiBold.woff2") format("woff2"),
+       url("./fonts/Inter/Inter-SemiBold.woff") format("woff");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url("./fonts/Inter/Inter-SemiBoldItalic.woff2") format("woff2"),
+       url("./fonts/Inter/Inter-SemiBoldItalic.woff") format("woff");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("./fonts/Inter/Inter-Bold.woff2") format("woff2"),
+       url("./fonts/Inter/Inter-Bold.woff") format("woff");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url("./fonts/Inter/Inter-BoldItalic.woff2") format("woff2"),
+       url("./fonts/Inter/Inter-BoldItalic.woff") format("woff");
+}
+
+/* Roboto Mono */
+@font-face {
+  font-family: "Roboto Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./fonts/Roboto_Mono/RobotoMono-Regular.woff2") format("woff2"),
+       url("./fonts/Roboto_Mono/RobotoMono-Regular.woff") format("woff");
+}
+@font-face {
+  font-family: "Roboto Mono";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./fonts/Roboto_Mono/RobotoMono-RegularItalic.woff2") format("woff2"),
+       url("./fonts/Roboto_Mono/RobotoMono-RegularItalic.woff") format("woff");
+}
+@font-face {
+  font-family: "Roboto Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("./fonts/Roboto_Mono/RobotoMono-Medium.woff2") format("woff2"),
+       url("./fonts/Roboto_Mono/RobotoMono-Medium.woff") format("woff");
+}
+@font-face {
+  font-family: "Roboto Mono";
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url("./fonts/Roboto_Mono/RobotoMono-MediumItalic.woff2") format("woff2"),
+       url("./fonts/Roboto_Mono/RobotoMono-MediumItalic.woff") format("woff");
+}
+@font-face {
+  font-family: "Roboto Mono";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("./fonts/Roboto_Mono/RobotoMono-SemiBold.woff2") format("woff2"),
+       url("./fonts/Roboto_Mono/RobotoMono-SemiBold.woff") format("woff");
+}
+@font-face {
+  font-family: "Roboto Mono";
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url("./fonts/Roboto_Mono/RobotoMono-SemiBoldItalic.woff2") format("woff2"),
+       url("./fonts/Roboto_Mono/RobotoMono-SemiBoldItalic.woff") format("woff");
+}
+@font-face {
+  font-family: "Roboto Mono";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("./fonts/Roboto_Mono/RobotoMono-Bold.woff2") format("woff2"),
+       url("./fonts/Roboto_Mono/RobotoMono-Bold.woff") format("woff");
+}
+@font-face {
+  font-family: "Roboto Mono";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url("./fonts/Roboto_Mono/RobotoMono-BoldItalic.woff2") format("woff2"),
+       url("./fonts/Roboto_Mono/RobotoMono-BoldItalic.woff") format("woff");
+}

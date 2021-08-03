@@ -1,0 +1,3 @@
+enable_registration: {{ synapse_registration|lower }}
+
+registration_shared_secret: {{ synapse_registration_shared_secret }}

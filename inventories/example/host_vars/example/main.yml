@@ -1,0 +1,102 @@
+---
+## roles/common
+admin_contact: "{{ vault_admin_contanct }}"
+disable_ipv6: true
+unattended_upgrades: true
+
+## roles/nginx
+nginx_fqdn: example.com
+nginx_expose_synapse_admin_api: false
+
+## roles/postgres
+postgres_database_user: "{{ vault_postgres_database_user }}"
+postgres_database_host: "{{ vault_postgres_database_host }}"
+
+## roles/matrix-synapse
+synapse_admin_contact: "{{ vault_synapse_admin_contact }}"
+
+synapse_server_name: matrix.example.com
+
+synapse_public_baseurl: example.com
+
+synapse_auto_join_rooms:
+  - "#welcome:{{ synapse_server_name }}"
+
+synapse_federation_listener: true
+synapse_federation_profile_lookup: false
+synapse_federation_publish_rooms: false
+#synapse_federation_domain_whitelist:
+#  - "{{ synapse_server_name }}"
+#synapse_federation_ip_range_blacklist:
+#  - 0.0.0.0/24
+
+synapse_registration: false
+
+synapse_smtp_app_name: medienhaus/classroom
+synapse_smtp_client_base_url: "https://{{ synapse_public_baseurl | default(synapse_server_name) }}/{{ element_web_root }}"
+
+synapse_database_user: "{{ vault_synapse_database_user }}"
+synapse_database_password: "{{ vault_synapse_database_password }}"
+synapse_database_database: "{{ vault_synapse_database_database }}"
+synapse_database_host: "{{ vault_synapse_database_host }}"
+
+synapse_ldap_uri: "{{ vault_synapse_ldap_uri }}"
+synapse_ldap_base: "{{ vault_synapse_ldap_base }}"
+synapse_ldap_attribute_uid: "{{ vault_synapse_ldap_attribute_uid }}"
+synapse_ldap_attribute_mail: "{{ vault_synapse_ldap_attribute_mail }}"
+synapse_ldap_attribute_name: "{{ vault_synapse_ldap_attribute_name }}"
+synapse_ldap_bind_dn: "{{ vault_synapse_ldap_bind_dn }}"
+synapse_ldap_bind_password: "{{ vault_synapse_ldap_bind_password }}"
+
+synapse_registration_shared_secret: "{{ vault_synapse_registration_shared_secret }}"
+
+synapse_smtp_host: "{{ vault_synapse_smtp_host }}"
+synapse_smtp_port: "{{ vault_synapse_smtp_port }}"
+synapse_smtp_user: "{{ vault_synapse_smtp_user }}"
+synapse_smtp_pass: "{{ vault_synapse_smtp_pass }}"
+synapse_smtp_from: "{{ vault_synapse_smtp_from }}"
+
+synapse_turn_uri: "{{ vault_synapse_turn_uri }}"
+synapse_turn_shared_secret: "{{ vault_synapse_turn_shared_secret }}"
+
+synapse_root_user_id: "{{ vault_synapse_root_user_id }}"
+synapse_root_user_password: "{{ vault_synapse_root_user_password }}"
+
+synapse_feedback_user_id: "{{ vault_synapse_feedback_user_id }}"
+synapse_feedback_user_password: "{{ vault_synapse_feedback_user_password }}"
+synapse_feedback_room_name: "{{ vault_synapse_feedback_room_name }}"
+
+synapse_request_user_id: "{{ vault_synapse_request_user_id }}"
+synapse_request_user_password: "{{ vault_synapse_request_user_password }}"
+synapse_request_room_name: "{{ vault_synapse_request_room_name }}"
+
+synapse_support_user_id: "{{ vault_synapse_support_user_id }}"
+synapse_support_user_password: "{{ vault_synapse_support_user_password }}"
+synapse_support_room_name: "{{ vault_synapse_support_room_name }}"
+
+## roles/element-web
+#element_web_config: config
+element_web_title: medienhaus/classroom
+
+#element_web_jitsi_domain: jitsi.riot.im
+
+## roles/medienhaus_backend
+#medienhaus_backend_uri: "{{ vault_medienhaus_backend_uri }}"
+medienhaus_backend_api: "{{ vault_medienhaus_backend_api }}"
+
+medienhaus_backend_feedback_user_id: "{{ vault_synapse_feedback_user_id }}"
+medienhaus_backend_feedback_user_password: "{{ vault_synapse_feedback_user_password }}"
+
+medienhaus_backend_request_user_id: "{{ vault_synapse_request_user_id }}"
+medienhaus_backend_request_user_password: "{{ vault_synapse_request_user_password }}"
+
+medienhaus_backend_root_user_id: "{{ vault_synapse_root_user_id }}"
+medienhaus_backend_root_user_password: "{{ vault_synapse_root_user_password }}"
+
+medienhaus_backend_support_user_id: "{{ vault_synapse_support_user_id }}"
+medienhaus_backend_support_user_password: "{{ vault_synapse_support_user_password }}"
+
+## roles/medienhaus_frontend
+medienhaus_frontend_name: medienhaus/
+medienhaus_frontend_forgot_password: "{{ synapse_client_base_url }}/#/forgot_password"
+medienhaus_frontend_register_account: "{{ synapse_client_base_url }}/#/forgot_password"

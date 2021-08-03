@@ -1,0 +1,3 @@
+{
+  "m.server": "{{ synapse_public_baseurl | default(synapse_server_name) }}:8448"
+}

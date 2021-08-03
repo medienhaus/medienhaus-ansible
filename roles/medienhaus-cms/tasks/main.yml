@@ -1,0 +1,49 @@
+---
+- name: add nodejs apt key
+  apt_key:
+    url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+    state: present
+
+- name: add nodejs 16.x repository
+  apt_repository:
+    repo: "deb https://deb.nodesource.com/node_16.x {{ ansible_distribution_release }} main"
+    update_cache: yes
+
+- name: install nodejs
+  apt:
+    name: nodejs
+    state: present
+    update_cache: yes
+
+- name: git clone medienhaus-cms
+  git:
+    #repo: https://github.com/medienhaus/medienhaus-cms
+    repo: git@github.com:medienhaus/medienhaus-cms.git
+    dest: /opt/medienhaus-cms
+    force: yes
+    update: yes
+    version: main
+    key_file: /root/.ssh/id_rsa
+    accept_hostkey: yes
+
+- name: configure medienhaus-cms
+  template:
+    src: .env
+    dest: /opt/medienhaus-cms/.env
+    owner: root
+    group: root
+    mode: 0644
+
+- name: install requirements via package.json
+  command: npm clean-install
+  args:
+    chdir: /opt/medienhaus-cms
+
+- name: build medienhaus-cms
+  command: npm run build
+  args:
+    chdir: /opt/medienhaus-cms
+
+- name: sync /opt/medienhaus-cms/build/ with /var/www/medienhaus_cms_endpoint
+  command: "rsync -avvr --delete /opt/medienhaus-cms/build/ /var/www/{{ medienhaus_cms_endpoint | default('medienhaus-cms') }}"
+  notify: restart nginx

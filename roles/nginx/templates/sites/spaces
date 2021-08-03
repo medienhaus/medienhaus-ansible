@@ -1,0 +1,37 @@
+server {
+  listen 80;
+  server_name {{ nginx_fqdn | default(ansible_fqdn) }};
+  return 301 https://$server_name$request_uri;
+}
+
+server {
+  listen 443 ssl;
+  server_name {{ nginx_fqdn | default(ansible_fqdn) }};
+
+  #ssl_certificate /etc/letsencrypt/live/{{ nginx_fqdn | default(ansible_fqdn) }}/fullchain.pem;
+  #ssl_certificate_key /etc/letsencrypt/live/{{ nginx_fqdn | default(ansible_fqdn) }}/privkey.pem;
+
+  location / {
+    root /var/www/html;
+    index index.html;
+    try_files $uri/ $uri /index.html =404;
+  }
+
+  location /{{ medienhaus_backend_api }}/ {
+    proxy_pass http://{{ medienhaus_backend_uri }};
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header X-Forwarded-Proto $scheme;
+  }
+
+  location /{{ medienhaus_cms_endpoint | default('medienhaus-cms') }} {
+    root /var/www;
+    index index.html;
+    try_files $uri/ $uri /{{ medienhaus_cms_endpoint | default('medienhaus-cms') }}/index.html =404;
+  }
+
+  location /{{ element_web_root | default('element') }} {
+    root /var/www;
+    index index.html;
+  }
+}

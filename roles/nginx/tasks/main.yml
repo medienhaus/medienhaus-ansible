@@ -1,0 +1,80 @@
+---
+- name: install, configure, and start nginx and certbot
+  apt:
+    name:
+      - nginx
+      - certbot
+      - python3-certbot-nginx
+    update_cache: yes
+
+- name: check if certificate exists
+  stat:
+    path: "/etc/letsencrypt/live/{{ nginx_fqdn | default(ansible_fqdn) }}/cert.pem"
+  register: cert
+
+- name: else generate new certificate
+  command: "certbot --nginx certonly --non-interactive --email {{ certbot_email }} --agree-tos --domains {{ nginx_fqdn | default(ansible_fqdn) }}"
+  when: not cert.stat.exists
+
+- name: disable nginx default config
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  notify: restart nginx
+
+- name: add sites
+  template:
+    src: "sites/{{ nginx_site }}"
+    dest: "/etc/nginx/sites-available/{{ nginx_site_name | default(nginx_site) }}"
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart nginx
+
+- name: enable sites
+  file:
+    src: "../sites-available/{{ nginx_site_name | default(nginx_site) }}"
+    dest: "/etc/nginx/sites-enabled/{{ nginx_site_name | default(nginx_site) }}"
+    state: link
+    force: yes
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart nginx
+
+- name: configure certificate for nginx
+  template:
+    src: letsencrypt.conf
+    dest: /etc/nginx/conf.d/letsencrypt.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart nginx
+
+- name: create /var/www/.well-known/matrix/
+  file:
+    path: /var/www/.well-known/matrix/
+    owner: root
+    group: root
+    mode: 0755
+    state: directory
+  when: synapse_public_baseurl is defined
+
+- name: configure /var/www/.well-known/matrix/
+  template:
+    src: ".well-known/matrix/{{ item }}"
+    dest: /var/www/.well-known/matrix/
+    owner: root
+    group: root
+    mode: 0644
+  loop:
+    - client
+    - server
+  when: synapse_public_baseurl is defined
+
+- name: restart nginx
+  systemd:
+    name: nginx
+    daemon_reload: yes
+    enabled: yes
+    state: restarted

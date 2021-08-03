@@ -1,0 +1,5 @@
+turn_uris: [ "{{ synapse_turn_uri }}?transport=udp", "{{ synapse_turn_uri }}?transport=tcp" ]
+
+turn_shared_secret: "{{ synapse_turn_shared_secret }}"
+
+turn_allow_guests: false

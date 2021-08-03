@@ -1,0 +1,10 @@
+---
+- name: apt update && apt upgrade
+  hosts: all
+  tasks:
+  - name: apt update && apt upgrade
+    apt:
+      update_cache: yes
+      upgrade: dist
+      autoclean: yes
+      autoremove: yes

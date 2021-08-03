@@ -1,0 +1,10 @@
+---
+- name: install dependencies via defaults/main.yml
+  apt:
+    name: "{{ depends }}"
+    update_cache: yes
+
+- name: install, configure, and start postgresql
+  apt:
+    name: postgresql
+    update_cache: yes

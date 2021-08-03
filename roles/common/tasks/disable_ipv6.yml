@@ -1,0 +1,11 @@
+---
+- name: disable ipv6
+  sysctl:
+    name: "net.ipv6.conf.{{ item }}.disable_ipv6"
+    value: "1"
+    state: present
+  with_items:
+    - all
+    - default
+    - lo
+    - "{{ ansible_default_ipv4.interface }}"

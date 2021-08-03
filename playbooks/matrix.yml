@@ -1,0 +1,9 @@
+---
+- name: install, configure, and start matrix stack
+  hosts: matrix
+  roles:
+    - roles/common
+    - roles/nginx
+    - roles/matrix-synapse
+  vars:
+    nginx_site: matrix

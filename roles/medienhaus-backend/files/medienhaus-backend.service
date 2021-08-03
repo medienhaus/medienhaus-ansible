@@ -1,0 +1,15 @@
+[Unit]
+Description=medienhaus/backend
+After=syslog.target network.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/opt/medienhaus-backend
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/node /opt/medienhaus-backend/index.js
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

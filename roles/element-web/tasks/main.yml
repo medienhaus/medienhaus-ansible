@@ -1,0 +1,78 @@
+---
+- name: download element tarball
+  get_url:
+    url: "https://github.com/vector-im/element-web/releases/download/{{ element_web_version }}/element-{{ element_web_version }}.tar.gz"
+    dest: /var/www/
+
+- name: unarchive element tarball
+  unarchive:
+    src: "/var/www/element-{{ element_web_version }}.tar.gz"
+    dest: /var/www/
+    owner: root
+    group: root
+    remote_src: yes
+
+- name: delete element tarball
+  file:
+    path: "/var/www/element-{{ element_web_version }}.tar.gz"
+    state: absent
+
+- name: configure element
+  template:
+    src: "{{ element_web_config | default('config') }}.json"
+    dest: "/var/www/element-{{ element_web_version }}/config.json"
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart nginx
+
+- name: customize element
+  copy:
+    src: "files/css/{{ item }}"
+    dest: "/var/www/element-{{ element_web_version }}/"
+    owner: root
+    group: root
+    mode: 0644
+  loop:
+    - custom.css
+    - fonts.css
+  notify: restart nginx
+
+- name: copy favicons to /var/www/element_web_version
+  copy:
+    src: "files/favicons/{{ item }}"
+    dest: "/var/www/element-{{ element_web_version }}/"
+    owner: root
+    group: root
+    mode: 0644
+  loop:
+    - favicon.ico
+    - favicon.png
+    - favicon.svg
+  notify: restart nginx
+
+- name: sync fonts to /var/www/element_web_version
+  synchronize:
+    src: fonts/
+    dest: "/var/www/element-{{ element_web_version }}/fonts"
+    archive: no
+    delete: no
+    recursive: yes
+  notify: restart nginx
+
+- name: configure /var/www/element_web_version/index.html
+  include_tasks: index_html.yml
+  when: element_web_title is defined
+
+- name: configure /var/www/element_web_version/build/hash/vendors~init.js
+  include_tasks: vendors_init_js.yml
+  when: medienhaus_frontend_name is defined
+
+- name: delete /var/www/element_web_root
+  file:
+    path: "/var/www/{{ element_web_root | default('element') }}"
+    state: absent
+
+- name: rename /var/www/element_web_version to /var/www/element_web_root
+  command: "mv /var/www/element-{{ element_web_version }} /var/www/{{ element_web_root | default('element') }}"
+  notify: restart nginx

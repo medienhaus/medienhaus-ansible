@@ -1,0 +1,8 @@
+---
+- name: install and configure element-web to /var/www/classroom/
+  hosts: element
+  roles:
+    - roles/element-web
+  vars:
+    element_web_root: classroom
+    element_web_version: v1.7.33

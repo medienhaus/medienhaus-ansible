@@ -1,0 +1,5 @@
+room_list_publication_rules:
+  - user_id: "@{{ synapse_root_user_id }}:{{ synapse_server_name }}"
+    alias: "*"
+    room_id: "*"
+    action: allow

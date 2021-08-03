@@ -1,0 +1,9 @@
+{
+  "preset": "private_chat",
+  "room_alias_name": "{{ synapse_feedback_room_name }}",
+  "name": "#{{ synapse_feedback_room_name }}",
+  "creation_content": {
+    "m.federate": false
+  },
+  "invite": ["@{{ synapse_feedback_user_id }}:{{ synapse_server_name }}"]
+}

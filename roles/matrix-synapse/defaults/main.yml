@@ -1,0 +1,5 @@
+---
+depends:
+  - apt-transport-https
+  - gnupg
+  - python3-psycopg2

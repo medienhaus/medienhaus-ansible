@@ -1,0 +1,109 @@
+---
+- name: add nodejs apt key
+  apt_key:
+    url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+    state: present
+
+- name: add nodejs 16.x repository
+  apt_repository:
+    repo: "deb https://deb.nodesource.com/node_16.x {{ ansible_distribution_release }} main"
+    update_cache: yes
+
+- name: install nodejs
+  apt:
+    name: nodejs
+    state: present
+    update_cache: yes
+
+- name: git clone medienhaus-backend
+  git:
+    repo: https://github.com/medienhaus/medienhaus-backend
+    dest: /opt/medienhaus-backend
+    force: yes
+    update: yes
+    #version: main
+    version: develop
+
+- name: log in feedback user
+  uri:
+    url: "https://{{ synapse_public_baseurl | default(synapse_server_name) }}/_matrix/client/r0/login"
+    method: POST
+    body: "{{ lookup('template', 'api_login_feedback.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json"
+  register: json_response_login_feedback
+  when: synapse_feedback_user_id is defined and json_response_login_feedback is not defined
+
+- name: resolve feedback room_id
+  uri:
+    url: "https://{{ synapse_public_baseurl | default(synapse_server_name) }}/_matrix/client/r0/directory/room/%23{{ synapse_feedback_room_name }}%3A{{ synapse_server_name }}"
+    method: GET
+    headers:
+      Content-Type: "application/json"
+  register: json_response_room_feedback
+  when: synapse_feedback_room_name is defined and json_response_room_feedback is not defined
+
+- name: log in request user
+  uri:
+    url: "https://{{ synapse_public_baseurl | default(synapse_server_name) }}/_matrix/client/r0/login"
+    method: POST
+    body: "{{ lookup('template', 'api_login_request.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json"
+  register: json_response_login_request
+  when: synapse_request_user_id is defined and json_response_login_request is not defined
+
+- name: resolve request room_id
+  uri:
+    url: "https://{{ synapse_public_baseurl | default(synapse_server_name) }}/_matrix/client/r0/directory/room/%23{{ synapse_request_room_name }}%3A{{ synapse_server_name }}"
+    method: GET
+    headers:
+      Content-Type: "application/json"
+  register: json_response_room_request
+  when: synapse_request_room_name is defined and json_response_room_request is not defined
+
+- name: log in support user
+  uri:
+    url: "https://{{ synapse_public_baseurl | default(synapse_server_name) }}/_matrix/client/r0/login"
+    method: POST
+    body: "{{ lookup('template', 'api_login_support.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json"
+  register: json_response_login_support
+  when: synapse_support_user_id is defined and json_response_login_support is not defined
+
+- name: resolve support room_id
+  uri:
+    url: "https://{{ synapse_public_baseurl | default(synapse_server_name) }}/_matrix/client/r0/directory/room/%23{{ synapse_support_room_name }}%3A{{ synapse_server_name }}"
+    method: GET
+    headers:
+      Content-Type: "application/json"
+  register: json_response_room_support
+  when: synapse_support_room_name is defined and json_support_room_support is not defined
+
+- name: configure medienhaus-backend
+  template:
+    src: .env
+    dest: /opt/medienhaus-backend/.env
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart medienhaus-backend
+
+- name: install requirements via package.json
+  command: npm clean-install
+  args:
+    chdir: /opt/medienhaus-backend
+  notify: restart medienhaus-backend
+
+- name: install medienhaus-backend.service
+  copy:
+    src: medienhaus-backend.service
+    dest: /etc/systemd/system/
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart medienhaus-backend
