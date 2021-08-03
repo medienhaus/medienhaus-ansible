@@ -95,9 +95,9 @@
     "UIFeature.shareSocial": false,
     "UIFeature.identityServer": false,
     "UIFeature.thirdPartyId": true,
-    "UIFeature.registration": true,
-    "UIFeature.passwordReset": true,
-    "UIFeature.deactivate": true,
+    "UIFeature.registration": false,
+    "UIFeature.passwordReset": false,
+    "UIFeature.deactivate": false,
     "UIFeature.advancedEncryption": false,
     "UIFeature.roomHistorySettings": true,
     "custom_themes": [
