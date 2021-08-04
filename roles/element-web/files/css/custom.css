@@ -84,6 +84,13 @@ code a, pre a, kbd a, samp a,
   display: none;
 }
 
+/* hide password reset section */
+.mx_SettingsTab_section.mx_GeneralUserSettingsTab_accountSection > span,
+.mx_SettingsTab_section.mx_GeneralUserSettingsTab_accountSection > span + p,
+.mx_SettingsTab_section.mx_GeneralUserSettingsTab_accountSection > span + p + form {
+  display: none;
+}
+
 /* hide theme button */
 .mx_UserMenu_contextMenu .mx_UserMenu_contextMenu_header .mx_UserMenu_contextMenu_themeButton {
   display: none;
