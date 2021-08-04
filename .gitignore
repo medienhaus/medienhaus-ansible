@@ -10,4 +10,6 @@ roles/element-web/templates/*
 !roles/element-web/templates/config.json
 
 .gitmodules
+
 .vault_pass
+.vault_pass_*
