@@ -1,6 +1,11 @@
 .*.swp
 .DS_Store
 
+.gitmodules
+
+.vault_pass
+.vault_pass_*
+
 ansible.cfg
 
 inventories/*
@@ -8,8 +13,3 @@ inventories/*
 
 roles/element-web/templates/*
 !roles/element-web/templates/config.json
-
-.gitmodules
-
-.vault_pass
-.vault_pass_*
