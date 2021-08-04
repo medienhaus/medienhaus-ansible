@@ -5,21 +5,9 @@ all:
       ansible_host: 0.0.0.0
       ansible_port: 22
   children:
-    backend:
-      hosts:
-        example:
-    database:
-      hosts:
-        example:
     element:
       hosts:
         example:
-    matrix:
-      hosts:
-        example:
     medienhaus:
-      hosts:
-        example:
-    spaces:
       hosts:
         example:

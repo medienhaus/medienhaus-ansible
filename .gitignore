@@ -11,5 +11,10 @@ ansible.cfg
 inventories/*
 !inventories/example/
 
+playbooks/*
+!playbooks/_upgrade.yml
+!playbooks/element.yml
+!playbooks/medienhaus.yml
+
 roles/element-web/templates/*
 !roles/element-web/templates/config.json

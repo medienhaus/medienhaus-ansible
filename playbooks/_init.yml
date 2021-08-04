@@ -1,5 +1,0 @@
----
-- name: apt update && apt upgrade, install common tools, secure ssh
-  hosts: all
-  roles:
-    - roles/common
