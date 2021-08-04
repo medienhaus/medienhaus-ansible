@@ -5,6 +5,7 @@
     - roles/common
     - roles/nginx
     - roles/element-web
+    - roles/medienhaus-frontend
     - roles/medienhaus-cms
   vars:
     nginx_site: spaces
