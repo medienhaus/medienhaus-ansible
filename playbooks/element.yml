@@ -1,5 +1,5 @@
 ---
-- name: install and configure element-web to /var/www/classroom/
+- name: install and configure element-web to /var/www/element_web_root
   hosts: element
   roles:
     - roles/element-web
