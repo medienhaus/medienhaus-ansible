@@ -5,9 +5,11 @@
   "m.identity_server": {
     "base_url": ""
   },
+{% if element_web_jitsi_domain is defined %}
   "im.vector.riot.jitsi": {
     "preferredDomain": "{{ element_web_jitsi_domain }}"
   },
+{% endif %}
   "io.element.e2ee": {
     "default": false
   }
