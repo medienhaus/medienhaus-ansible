@@ -80,7 +80,7 @@ element_web_title: medienhaus/classroom
 
 #element_web_jitsi_domain: jitsi.riot.im
 
-## roles/medienhaus_backend
+## roles/medienhaus-backend
 #medienhaus_backend_uri: "{{ vault_medienhaus_backend_uri }}"
 medienhaus_backend_api: "{{ vault_medienhaus_backend_api }}"
 
@@ -96,7 +96,7 @@ medienhaus_backend_root_user_password: "{{ vault_synapse_root_user_password }}"
 medienhaus_backend_support_user_id: "{{ vault_synapse_support_user_id }}"
 medienhaus_backend_support_user_password: "{{ vault_synapse_support_user_password }}"
 
-## roles/medienhaus_frontend
+## roles/medienhaus-frontend
 medienhaus_frontend_name: medienhaus/
 medienhaus_frontend_forgot_password: "{{ synapse_client_base_url }}/#/forgot_password"
 medienhaus_frontend_register_account: "{{ synapse_client_base_url }}/#/forgot_password"
