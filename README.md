@@ -12,6 +12,8 @@ Berlin University of the Arts’ free and open-source environment for digital le
 
 This repository contains our Ansible roles and playbook for an automated installation of matrix-synapse and dependencies, our customized element-web, our [medienhaus-backend](https://github.com/medienhaus/medienhaus-backend), and our [medienhaus-frontend](https://github.com/medienhaus/medienhaus-frontend).
 
+**Note:** Tested and working in Ubuntu 20.04 LTS unprivileged Linux containers (LXC).
+
 **TODO:** finalize and then add [medienhaus-cms](https://github.com/medienhaus/medienhaus-cms) …
 
 ## Development
