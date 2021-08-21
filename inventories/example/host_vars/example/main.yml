@@ -1,6 +1,6 @@
 ---
 ## roles/common
-admin_contact: "{{ vault_admin_contanct }}"
+admin_contact: "{{ vault_admin_contact }}"
 disable_ipv6: true
 unattended_upgrades: true
 
