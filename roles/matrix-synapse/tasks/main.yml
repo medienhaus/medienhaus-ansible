@@ -52,8 +52,9 @@
     - alias_creation_rules.yaml
     - room_list_publication_rules.yaml
   notify: restart matrix-synapse
-  when: inventory_hostname_short is match("udk_.*") and
-        inventory_hostname_short is not match(".*_dev")
+  #when: inventory_hostname_short is match("udk_.*") and
+  #      inventory_hostname_short is not match(".*_dev")
+  when: inventory_hostname_short == "udk_medienhaus"
 
 - name: configure matrix-synapse (auto join)
   template:
