@@ -367,6 +367,15 @@ code a, pre a, kbd a, samp a,
   background-color: var(--accent-color);
 }
 
+/* toast colors */
+.mx_ToastContainer .mx_Toast_toast {
+  background-color: var(--roomlist-background-color);
+  border-color: var(--roomlist-separator-color);
+  border-width: 1px;
+  border-style: solid;
+  box-shadow: unset;
+}
+
 /* tooltip colors */
 /*
 .mx_Tooltip,
