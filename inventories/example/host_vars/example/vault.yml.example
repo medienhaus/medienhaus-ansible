@@ -17,6 +17,7 @@ vault_synapse_database_host: "{{ postgres_database_host }}"
 
 #vault_synapse_ldap_uri: ldap://ldap.example.com:389
 vault_synapse_ldap_uri: ldaps://ldap.example.com:636
+vault_synapse_ldap_start_tls: false
 vault_synapse_ldap_base: dc=example,dc=com
 vault_synapse_ldap_attribute_uid: uid
 vault_synapse_ldap_attribute_mail: mail

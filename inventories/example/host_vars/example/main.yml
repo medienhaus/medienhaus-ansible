@@ -41,6 +41,7 @@ synapse_database_database: "{{ vault_synapse_database_database }}"
 synapse_database_host: "{{ vault_synapse_database_host }}"
 
 synapse_ldap_uri: "{{ vault_synapse_ldap_uri }}"
+synapse_ldap_start_tls: "{{ vault_synapse_ldap_start_tls|lower }}"
 synapse_ldap_base: "{{ vault_synapse_ldap_base }}"
 synapse_ldap_attribute_uid: "{{ vault_synapse_ldap_attribute_uid }}"
 synapse_ldap_attribute_mail: "{{ vault_synapse_ldap_attribute_mail }}"
