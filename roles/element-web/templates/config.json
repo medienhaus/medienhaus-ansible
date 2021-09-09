@@ -30,7 +30,8 @@
     "https://{{ synapse_public_baseurl | default(synapse_server_name) }}": false
   },
   "features": {
-    "feature_spaces": true
+    "feature_spaces": true,
+    "feature_thread": true
   },
 {% if element_web_jitsi_domain is defined %}
   "jitsi": {
