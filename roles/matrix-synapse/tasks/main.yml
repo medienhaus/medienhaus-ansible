@@ -136,6 +136,17 @@
   notify: restart matrix-synapse
   when: inventory_hostname_short == "udk_medienhaus"
 
+- name: configure matrix-synapse (rate limits)
+  template:
+    src: conf.d/ratelimiting.yaml
+    dest: /etc/matrix-synapse/conf.d/
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart matrix-synapse
+  #when: inventory_hostname_short is match(".*_dev") or
+  #      inventory_hostname_short == "udk_content"
+
 - name: configure matrix-synapse (turn uri and secret)
   template:
     src: conf.d/turn.yaml

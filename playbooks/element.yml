@@ -5,4 +5,4 @@
     - roles/element-web
   vars:
     element_web_root: classroom
-    element_web_version: v1.8.2
+    element_web_version: v1.8.5
