@@ -144,8 +144,8 @@
     group: root
     mode: 0644
   notify: restart matrix-synapse
-  #when: inventory_hostname_short is match(".*_dev") or
-  #      inventory_hostname_short == "udk_content"
+  when: inventory_hostname_short == "udk_content" or
+        inventory_hostname_short is match(".*_dev")
 
 - name: configure matrix-synapse (turn uri and secret)
   template:
