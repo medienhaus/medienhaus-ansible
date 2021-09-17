@@ -30,6 +30,13 @@ server {
     try_files $uri/ $uri /{{ medienhaus_cms_endpoint | default('medienhaus-cms') }}/index.html =404;
   }
 
+  location /{{ rundgang_onboarding_endpoint | default('rundgang-onboarding') }}/ {
+    proxy_pass http://{{ rundgang_onboarding_uri }};
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header X-Forwarded-Proto $scheme;
+  }
+
   location /{{ element_web_root | default('element') }} {
     root /var/www;
     index index.html;
