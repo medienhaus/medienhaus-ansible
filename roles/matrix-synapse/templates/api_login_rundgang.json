@@ -1,0 +1,8 @@
+{
+  "type": "m.login.password",
+  "identifier": {
+    "type": "m.id.user",
+    "user": "{{ synapse_rundgang_user_id }}"
+  },
+  "password": "{{ synapse_rundgang_user_password }}"
+}

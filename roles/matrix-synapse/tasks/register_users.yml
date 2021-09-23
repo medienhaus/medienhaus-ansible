@@ -17,11 +17,23 @@
   failed_when: '"Success!" not in command_result.stdout and "User ID already taken." not in command_result.stdout'
   when: synapse_request_user_id is defined
 
+- name: register rundgang-bot user
+  command: "register_new_matrix_user -k {{ synapse_registration_shared_secret }} -u {{ synapse_rundgang_user_id }} -p {{ synapse_rundgang_user_password }} --no-admin http://localhost:8008"
+  register: command_result
+  failed_when: '"Success!" not in command_result.stdout and "User ID already taken." not in command_result.stdout'
+  when: synapse_rundgang_user_id is defined
+
 - name: register support-bot user
   command: "register_new_matrix_user -k {{ synapse_registration_shared_secret }} -u {{ synapse_support_user_id }} -p {{ synapse_support_user_password }} --no-admin http://localhost:8008"
   register: command_result
   failed_when: '"Success!" not in command_result.stdout and "User ID already taken." not in command_result.stdout'
   when: synapse_support_user_id is defined
+
+- name: register terms-bot user
+  command: "register_new_matrix_user -k {{ synapse_registration_shared_secret }} -u {{ synapse_terms_user_id }} -p {{ synapse_terms_user_password }} --no-admin http://localhost:8008"
+  register: command_result
+  failed_when: '"Success!" not in command_result.stdout and "User ID already taken." not in command_result.stdout'
+  when: synapse_terms_user_id is defined
 
 - name: log in root user
   uri:
@@ -158,6 +170,26 @@
       Content-Type: "application/json"
   when: synapse_request_user_id is defined
 
+- name: log in rundgang user
+  uri:
+    url: "https://{{ synapse_public_baseurl | default(synapse_server_name) }}/_matrix/client/r0/login"
+    method: POST
+    body: "{{ lookup('template', 'api_login_rundgang.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json"
+  register: json_response_login_rundgang
+  when: synapse_rundgang_user_id is defined
+
+# TODO or unnecessary ?!
+#- name: save synapse_rundgang_user_access_token to host_vars/main.yml
+#  lineinfile:
+#    path: "host_vars/{{ ansible_hostname_short }}/tmp.yml"
+#    regexp: 'synapse_rundgang_user_access_token: '
+#    line: 'synapse_rundgang_user_access_token: {{ json_response_login_rundgang.json.access_token }}'
+#  delegate_to: localhost
+#  when: synapse_rundgang_user_id is defined
+
 - name: log in support user
   uri:
     url: "https://{{ synapse_public_baseurl | default(synapse_server_name) }}/_matrix/client/r0/login"
@@ -186,3 +218,32 @@
       Authorization: "Bearer {{ json_response_login_support.json.access_token }}"
       Content-Type: "application/json"
   when: synapse_support_user_id is defined
+
+- name: log in terms user
+  uri:
+    url: "https://{{ synapse_public_baseurl | default(synapse_server_name) }}/_matrix/client/r0/login"
+    method: POST
+    body: "{{ lookup('template', 'api_login_terms.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json"
+  register: json_response_login_terms
+  when: synapse_terms_user_id is defined
+
+# TODO or unnecessary ?!
+#- name: save synapse_terms_user_access_token to host_vars/main.yml
+#  lineinfile:
+#    path: "host_vars/{{ ansible_hostname_short }}/tmp.yml"
+#    regexp: 'synapse_terms_user_access_token: '
+#    line: 'synapse_terms_user_access_token: {{ json_response_login_terms.json.access_token }}'
+#  delegate_to: localhost
+#  when: synapse_terms_user_id is defined
+
+##- name: accept invitation to terms room and join
+##  uri:
+##    url: "https://{{ synapse_public_baseurl | default(synapse_server_name) }}/_matrix/client/r0/join/%23{{ synapse_terms_room_name }}%3A{{ synapse_server_name }}"
+##    method: POST
+##    headers:
+##      Authorization: "Bearer {{ json_response_login_terms.json.access_token }}"
+##      Content-Type: "application/json"
+##  when: synapse_terms_user_id is defined
