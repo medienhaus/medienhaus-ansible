@@ -93,7 +93,7 @@
     "UIFeature.widgets": true,
     "UIFeature.flair": false,
     "UIFeature.communities": false,
-    "UIFeature.advancedSettings": false,
+    "UIFeature.advancedSettings": true,
     "UIFeature.shareQrCode": false,
     "UIFeature.shareSocial": false,
     "UIFeature.identityServer": false,
