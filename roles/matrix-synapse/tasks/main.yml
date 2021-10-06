@@ -33,7 +33,6 @@
     - metrics.yaml
     - presence.yaml
     - public_baseurl.yaml
-    - ratelimiting.yaml
     - registration.yaml
     - report_stats.yaml
     - server_name.yaml

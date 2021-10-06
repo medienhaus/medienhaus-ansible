@@ -503,6 +503,21 @@ code a, pre a, kbd a, samp a,
   opacity: unset;
 }
 
+/* voice message colors */
+.mx_MediaBody {
+  background-color: var(--timeline-text-color-15pct);
+  color: var(--timeline-text-color);
+}
+.mx_PlayPauseButton {
+  background-color: var(--timeline-background-color);
+}
+.mx_PlayPauseButton::before {
+  background-color: var(--timeline-text-color);
+}
+.mx_MediaBody.mx_VoiceMessagePrimaryContainer .mx_Waveform .mx_Waveform_bar {
+  background-color: var(--timeline-text-color-50pct);
+}
+
 /* widget bar colors */
 .mx_AppTileMenuBar {
   background-color: var(--roomlist-separator-color);
