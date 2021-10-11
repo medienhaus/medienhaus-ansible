@@ -64,9 +64,9 @@
   include_tasks: index_html.yml
   when: element_web_title is defined
 
-- name: configure /var/www/element-element_web_version/build/hash/vendors~init.js
-  include_tasks: vendors_init_js.yml
-  when: medienhaus_frontend_name is defined
+#- name: configure /var/www/element-element_web_version/build/hash/vendors~init.js
+#  include_tasks: vendors_init_js.yml
+#  when: medienhaus_frontend_name is defined
 
 - name: delete /var/www/element_web_root
   file:
