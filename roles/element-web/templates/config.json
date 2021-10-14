@@ -10,7 +10,7 @@
   },
   "brand": "{{ element_web_title }}",
   "bug_report_endpoint_url": "https://element.io/bugreports/submit",
-  "default_federate": false,
+  "default_federate": true,
   "default_theme": "custom-Medienhaus Day",
   "defaultCountryCode": "DE",
   "disable_3pid_login": true,
