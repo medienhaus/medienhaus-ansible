@@ -1,1 +1,1 @@
-enable_metrics: false
+enable_metrics: {{ synapse_enable_metrics|lower | default('false') }}
