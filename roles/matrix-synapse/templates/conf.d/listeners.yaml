@@ -4,6 +4,7 @@ listeners:
     type: http
     x_forwarded: true
     bind_addresses: ["127.0.0.1"]
+
     resources:
 {% if synapse_federation_listener %}
       - names: [client, federation]
@@ -12,6 +13,7 @@ listeners:
 {% endif %}
         compress: false
 {% if synapse_enable_metrics %}
+
   - port: 9000
     type: metrics
     bind_addresses: ["0.0.0.0"]
