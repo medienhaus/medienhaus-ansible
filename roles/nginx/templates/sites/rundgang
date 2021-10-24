@@ -1,0 +1,53 @@
+server {
+  listen 80;
+  server_name {{ nginx_fqdn | default(ansible_fqdn) }};
+  return 301 https://$server_name$request_uri;
+}
+{% if nginx_www_redirect %}
+
+server {
+  listen 80;
+  server_name www.{{ nginx_fqdn | default(ansible_fqdn) }};
+  return 301 https://{{ nginx_fqdn | default(ansible_fqdn) }}$request_uri;
+}
+
+server {
+  listen 443 ssl;
+  server_name www.rundgang.udk-berlin.de;
+  return 301 https://rundgang.udk-berlin.de$request_uri;
+}
+{% endif %}
+
+server {
+  listen 443 ssl;
+  server_name {{ nginx_fqdn | default(ansible_fqdn) }};
+
+  #ssl_certificate /etc/letsencrypt/live/{{ nginx_fqdn | default(ansible_fqdn) }}/fullchain.pem;
+  #ssl_certificate_key /etc/letsencrypt/live/{{ nginx_fqdn | default(ansible_fqdn) }}/privkey.pem;
+
+  #location / {
+  #  auth_basic "rundgang.udk-berlin.de";
+  #  auth_basic_user_file /var/www/.htpasswd;
+
+  #  root /var/www/html;
+  #  index index.html;
+  #}
+
+  location / {
+    auth_basic "rundgang.udk-berlin.de";
+    auth_basic_user_file /var/www/.htpasswd;
+
+    proxy_pass http://127.0.0.1:3004;
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header X-Forwarded-Proto $scheme;
+  }
+
+  location /monitoring {
+    auth_basic "rundgang.udk-berlin.de/monitoring";
+    auth_basic_user_file /var/www/.htpasswd;
+
+    root /var/www;
+    index index.html;
+  }
+}

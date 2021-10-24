@@ -1,0 +1,15 @@
+[Unit]
+Description=udk/rundgang
+After=syslog.target network.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/opt/rundgang-frontend
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/node /opt/rundgang-frontend/index.js
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

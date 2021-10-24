@@ -1,0 +1,7 @@
+---
+- name: restart rundgang-frontend
+  systemd:
+    name: rundgang-frontend
+    daemon_reload: yes
+    enabled: yes
+    state: restarted

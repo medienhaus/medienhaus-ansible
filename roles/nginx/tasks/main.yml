@@ -14,7 +14,15 @@
 
 - name: else generate new certificate
   command: "certbot --nginx certonly --non-interactive --email {{ certbot_email }} --agree-tos --domains {{ nginx_fqdn | default(ansible_fqdn) }}"
-  when: not cert.stat.exists
+  when: not cert.stat.exists and
+        nginx_www_redirect is not defined or
+        nginx_www_redirect == False
+
+- name: else generate new certificate
+  command: "certbot --nginx certonly --non-interactive --email {{ certbot_email }} --agree-tos --domains {{ nginx_fqdn | default(ansible_fqdn) }} --domains www.{{ nginx_fqdn | default(ansible_fqdn) }} --expand"
+  when: not cert.stat.exists and
+        nginx_www_redirect is defined and
+        nginx_www_redirect == True
 
 - name: disable nginx default config
   file:
