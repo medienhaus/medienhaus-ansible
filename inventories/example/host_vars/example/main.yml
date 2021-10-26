@@ -22,6 +22,8 @@ synapse_public_baseurl: example.com
 synapse_auto_join_rooms:
   - "#welcome:{{ synapse_server_name }}"
 
+#synapse_enable_metrics: true
+
 synapse_federation_listener: true
 synapse_federation_profile_lookup: false
 synapse_federation_publish_rooms: false
