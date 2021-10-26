@@ -99,5 +99,5 @@ medienhaus_backend_support_user_password: "{{ vault_synapse_support_user_passwor
 
 ## roles/medienhaus-frontend
 medienhaus_frontend_name: medienhaus/
-medienhaus_frontend_forgot_password: "{{ synapse_client_base_url }}/#/forgot_password"
-medienhaus_frontend_register_account: "{{ synapse_client_base_url }}/#/register"
+medienhaus_frontend_forgot_password: "{{ synapse_smtp_client_base_url }}/#/forgot_password"
+medienhaus_frontend_register_account: "{{ synapse_smtp_client_base_url }}/#/register"
