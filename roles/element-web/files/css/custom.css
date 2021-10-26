@@ -40,7 +40,7 @@ code a, pre a, kbd a, samp a,
 /* channel private/public/federated indicator */
 .mx_DecoratedRoomAvatar .mx_DecoratedRoomAvatar_icon,
 .mx_TemporaryTile .mx_DecoratedRoomAvatar_icon {
-  background-color: var(--roomlist-text-color)
+  background-color: var(--roomlist-background-color);
   border-color: var(--roomlist-background-color);
   border-radius: 50% !important;
   border-style: solid;
