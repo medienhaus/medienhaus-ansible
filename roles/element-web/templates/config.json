@@ -108,6 +108,7 @@
         "name": "Medienhaus Day",
         "is_dark": false,
         "colors": {
+          "accent": "#0f0f0f",
           "accent-color": "#0f0f0f",
           "primary-color": "#0f0f0f",
           "sidebar-color": "#ffffff",
@@ -128,6 +129,7 @@
         "name": "Medienhaus Night",
         "is_dark": true,
         "colors": {
+          "accent": "#3f3f3f",
           "accent-color": "#3f3f3f",
           "primary-color": "#f0f0f0",
           "sidebar-color": "#0f0f0f",

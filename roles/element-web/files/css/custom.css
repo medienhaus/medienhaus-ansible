@@ -227,6 +227,11 @@ code a, pre a, kbd a, samp a,
   text-decoration: underline;
 }
 
+/* markdown-body colors */
+.mx_EventTile_content .markdown-body code, .mx_EventTile_content .markdown-body pre {
+  background-color: var(--roomlist-separator-color);
+}
+
 /* menu button hover colors */
 .mx_IconizedContextMenu .mx_IconizedContextMenu_optionList .mx_AccessibleButton:hover {
   background-color: var(--roomlist-separator-color);
@@ -505,7 +510,7 @@ code a, pre a, kbd a, samp a,
 
 /* voice message colors */
 .mx_MediaBody {
-  background-color: var(--timeline-text-color-15pct);
+  background-color: var(--roomlist-highlights-color);
   color: var(--timeline-text-color);
 }
 .mx_PlayPauseButton {
