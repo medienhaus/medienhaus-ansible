@@ -8,7 +8,7 @@
       "base_url": ""
     }
   },
-  "brand": "{{ element_web_title }}",
+  "brand": "{{ element_web_title | default('Element') }}",
   "bug_report_endpoint_url": "https://element.io/bugreports/submit",
   "default_federate": true,
   "default_theme": "custom-Medienhaus Day",
@@ -39,7 +39,7 @@
   },
 {% endif %}
   "mobileGuideToast": true,
-  "permalinkPrefix": "https://{{ synapse_public_baseurl | default(synapse_server_name) }}/{{ element_web_root }}",
+  "permalinkPrefix": "https://{{ synapse_public_baseurl | default(synapse_server_name) }}/{{ element_web_root | default('element') }}",
   "roomDirectory": {
     "servers": [
       "{{ synapse_server_name }}"

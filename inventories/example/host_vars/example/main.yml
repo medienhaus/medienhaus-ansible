@@ -35,7 +35,7 @@ synapse_federation_publish_rooms: false
 synapse_registration: false
 
 synapse_smtp_app_name: medienhaus/classroom
-synapse_smtp_client_base_url: "https://{{ synapse_public_baseurl | default(synapse_server_name) }}/{{ element_web_root }}"
+synapse_smtp_client_base_url: "https://{{ synapse_public_baseurl | default(synapse_server_name) }}/{{ element_web_root | default('element') }}"
 
 synapse_database_user: "{{ vault_synapse_database_user }}"
 synapse_database_password: "{{ vault_synapse_database_password }}"
