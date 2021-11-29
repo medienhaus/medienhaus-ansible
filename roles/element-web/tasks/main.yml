@@ -37,6 +37,7 @@
     - custom.css
     - fonts.css
   notify: restart nginx
+  when: element_web_title is defined
 
 - name: copy favicons to /var/www/element-element_web_version
   copy:
@@ -50,6 +51,7 @@
     - favicon.png
     - favicon.svg
   notify: restart nginx
+  when: element_web_title is defined
 
 - name: sync fonts to /var/www/element-element_web_version
   synchronize:
@@ -59,6 +61,7 @@
     delete: no
     recursive: yes
   notify: restart nginx
+  when: element_web_title is defined
 
 - name: configure /var/www/element-element_web_version/index.html
   include_tasks: index_html.yml
