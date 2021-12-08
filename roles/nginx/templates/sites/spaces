@@ -41,4 +41,22 @@ server {
     root /var/www;
     index index.html;
   }
+{% if spaces_lab_market_cms_endpoint and spaces_lab_market_cms_uri %}
+
+  location /lab/{{ spaces_lab_market_cms_endpoint | default('market-cms') }}/ {
+    proxy_pass http://{{ spaces_lab_market_cms_uri }};
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header X-Forwarded-Proto $scheme;
+  }
+{% endif %}
+{% if spaces_lab_market_frontend_endpoint and spaces_lab_market_frontend_uri %}
+
+  location /lab/{{ spaces_lab_market_frontend_endpoint | default('market-frontend') }}/ {
+    proxy_pass http://{{ spaces_lab_market_frontend_uri }};
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header X-Forwarded-Proto $scheme;
+  }
+{% endif %}
 }

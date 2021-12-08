@@ -1,0 +1,7 @@
+---
+- name: restart market-frontend
+  systemd:
+    name: market-frontend
+    daemon_reload: yes
+    enabled: yes
+    state: restarted

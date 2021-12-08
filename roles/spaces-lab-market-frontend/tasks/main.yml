@@ -1,0 +1,58 @@
+---
+- name: add nodejs apt key
+  apt_key:
+    url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+    state: present
+
+- name: add nodejs 16.x repository
+  apt_repository:
+    repo: "deb https://deb.nodesource.com/node_16.x {{ ansible_distribution_release }} main"
+    update_cache: yes
+
+- name: install nodejs
+  apt:
+    name: nodejs
+    state: present
+    update_cache: yes
+
+- name: git clone market-frontend
+  git:
+    repo: https://github.com/medienhaus/market-frontend
+    dest: /opt/market-frontend
+    force: yes
+    update: yes
+    version: main
+
+- name: log in market user
+  uri:
+    url: "https://{{ synapse_public_baseurl_content | default(synapse_server_name_content) }}/_matrix/client/r0/login"
+    method: POST
+    body: "{{ lookup('template', 'api_login_market.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json"
+  register: json_response_login_market
+
+- name: configure market-frontend
+  template:
+    src: config.js
+    dest: /opt/market-frontend/config.js
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart market-frontend
+
+- name: install requirements via package.json
+  command: npm clean-install
+  args:
+    chdir: /opt/market-frontend
+  notify: restart market-frontend
+
+- name: install market-frontend.service
+  copy:
+    src: market-frontend.service
+    dest: /etc/systemd/system/
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart market-frontend

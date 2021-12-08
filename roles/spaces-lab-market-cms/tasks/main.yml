@@ -15,21 +15,21 @@
     state: present
     update_cache: yes
 
-- name: git clone medienhaus-cms
+- name: git clone market-cms
   git:
     repo: https://github.com/medienhaus/medienhaus-cms
     #repo: git@github.com:medienhaus/medienhaus-cms.git
-    dest: /opt/medienhaus-cms
+    dest: /opt/market-cms
     force: yes
     update: yes
-    version: main
+    version: market
     #key_file: /root/.ssh/id_rsa
     #accept_hostkey: yes
 
-- name: configure medienhaus-cms
+- name: configure market-cms
   template:
     src: .env
-    dest: /opt/medienhaus-cms/.env
+    dest: /opt/market-cms/.env
     owner: root
     group: root
     mode: 0644
@@ -37,13 +37,13 @@
 - name: install requirements via package.json
   command: npm clean-install
   args:
-    chdir: /opt/medienhaus-cms
+    chdir: /opt/market-cms
 
-- name: build medienhaus-cms
+- name: build market-cms
   command: npm run build
   args:
-    chdir: /opt/medienhaus-cms
+    chdir: /opt/market-cms
 
-- name: sync /opt/medienhaus-cms/build/ with /var/www/medienhaus_cms_endpoint
-  command: "rsync -avvr --delete /opt/medienhaus-cms/build/ /var/www/{{ medienhaus_cms_endpoint | default('medienhaus-cms') }}"
+- name: sync /opt/market-cms/build/ with /var/www/market_cms_endpoint
+  command: "rsync -avvr --delete /opt/market-cms/build/ /var/www/{{ market_cms_endpoint | default('market-cms') }}"
   notify: restart nginx
