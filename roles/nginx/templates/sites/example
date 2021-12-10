@@ -3,6 +3,20 @@ server {
   server_name {{ nginx_fqdn | default(ansible_fqdn) }};
   return 301 https://$server_name$request_uri;
 }
+{% if nginx_www_redirect %}
+
+server {
+  listen 80;
+  server_name www.{{ nginx_fqdn | default(ansible_fqdn) }};
+  return 301 https://{{ nginx_fqdn | default(ansible_fqdn) }}$request_uri;
+}
+
+server {
+  listen 443 ssl;
+  server_name www.{{ nginx_fqdn | default(ansible_fqdn) }};
+  return 301 https://{{ nginx_fqdn | default(ansible_fqdn) }}$request_uri;
+}
+{% endif %}
 
 server {
   listen 443 ssl;
@@ -29,23 +43,54 @@ server {
     client_max_body_size 25M;
   }
 
+  location /_matrix/client/r0/account/deactivate {
+    return 403 '{"errcode": "M_FORBIDDEN","error": "Forbidden"}';
+  }
+
+  location /_matrix/client/r0/account/password {
+    return 403 '{"errcode": "M_FORBIDDEN","error": "Forbidden"}';
+  }
+{% if synapse_public_baseurl is defined or element_disable_default_encryption %}
+
   location /.well-known/matrix {
     root /var/www;
     add_header Access-Control-Allow-Origin *;
     add_header Content-Type application/json;
   }
-
-  location /{{ medienhaus_backend_api }}/ {
-    proxy_pass http://127.0.0.1:3001;
-    proxy_set_header Host $host;
-    proxy_set_header X-Forwarded-For $remote_addr;
-    proxy_set_header X-Forwarded-Proto $scheme;
-  }
+{% endif %}
+{% if element_web_root is defined %}
 
   location /{{ element_web_root | default('element') }} {
     root /var/www;
     index index.html;
   }
+{% endif %}
+{% if medienhaus_backend_api is defined %}
+
+  location /{{ medienhaus_backend_api }}/ {
+    proxy_pass http://{{ medienhaus_backend_uri }};
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header X-Forwarded-Proto $scheme;
+  }
+{% endif %}
+{% if medienhaus_cms_endpoint is defined %}
+
+  location /{{ medienhaus_cms_endpoint | default('medienhaus-cms') }} {
+    root /var/www;
+    index index.html;
+    try_files $uri/ $uri /{{ medienhaus_cms_endpoint | default('medienhaus-cms') }}/index.html =404;
+  }
+{% endif %}
+{% if rundgang_onboarding_endpoint is defined %}
+
+  location /{{ rundgang_onboarding_endpoint | default('rundgang-onboarding') }}/ {
+    proxy_pass http://{{ rundgang_onboarding_uri }};
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header X-Forwarded-Proto $scheme;
+  }
+{% endif %}
 }
 
 server {
