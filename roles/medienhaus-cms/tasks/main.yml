@@ -17,14 +17,14 @@
 
 - name: git clone medienhaus-cms
   git:
-    #repo: https://github.com/medienhaus/medienhaus-cms
-    repo: git@github.com:medienhaus/medienhaus-cms.git
+    repo: https://github.com/medienhaus/medienhaus-cms
+    #repo: git@github.com:medienhaus/medienhaus-cms.git
     dest: /opt/medienhaus-cms
     force: yes
     update: yes
     version: main
-    key_file: /root/.ssh/id_rsa
-    accept_hostkey: yes
+    #key_file: /root/.ssh/id_rsa
+    #accept_hostkey: yes
 
 - name: configure medienhaus-cms
   template:
