@@ -60,7 +60,7 @@ server {
 {% endif %}
 {% if element_web_root is defined %}
 
-  location /{{ element_web_root | default('element') }} {
+  location /{{ element_web_root }} {
     root /var/www;
     index index.html;
   }
@@ -74,17 +74,26 @@ server {
     proxy_set_header X-Forwarded-Proto $scheme;
   }
 {% endif %}
+{% if medienhaus_cms_api is defined %}
+
+  location /{{ medienhaus_cms_api }}/ {
+    proxy_pass http://{{ medienhaus_cms_uri }};
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header X-Forwarded-Proto $scheme;
+  }
+{% endif %}
 {% if medienhaus_cms_endpoint is defined %}
 
-  location /{{ medienhaus_cms_endpoint | default('medienhaus-cms') }} {
+  location /{{ medienhaus_cms_endpoint }} {
     root /var/www;
     index index.html;
-    try_files $uri/ $uri /{{ medienhaus_cms_endpoint | default('medienhaus-cms') }}/index.html =404;
+    try_files $uri/ $uri /{{ medienhaus_cms_endpoint }}/index.html =404;
   }
 {% endif %}
 {% if rundgang_onboarding_endpoint is defined %}
 
-  location /{{ rundgang_onboarding_endpoint | default('rundgang-onboarding') }}/ {
+  location /{{ rundgang_onboarding_endpoint }}/ {
     proxy_pass http://{{ rundgang_onboarding_uri }};
     proxy_set_header Host $host;
     proxy_set_header X-Forwarded-For $remote_addr;
