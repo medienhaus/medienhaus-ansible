@@ -53,7 +53,7 @@ vault_synapse_support_user_password: super_secret_and_very_long_random_passphras
 vault_synapse_support_room_name: dev-support
 
 ## roles/medienhaus-backend
-vault_medienhaus_backend_uri: example.com
+vault_medienhaus_backend_uri: example.com:3001
 vault_medienhaus_backend_api: api
 
 vault_medienhaus_backend_feedback_user_id: "{{ synapse_feedback_user_id }}"
