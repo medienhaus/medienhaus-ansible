@@ -50,7 +50,7 @@ server {
   location /_matrix/client/r0/account/password {
     return 403 '{"errcode": "M_FORBIDDEN","error": "Forbidden"}';
   }
-{% if synapse_public_baseurl is defined or element_disable_default_encryption %}
+{% if synapse_public_baseurl is defined or (element_disable_default_encryption is defined and element_disable_default_encryption) %}
 
   location /.well-known/matrix {
     root /var/www;

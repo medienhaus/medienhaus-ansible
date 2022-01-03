@@ -12,4 +12,4 @@
   vars:
     nginx_site: medienhaus
     element_web_root: classroom
-    element_web_version: v1.8.5
+    element_web_version: v1.9.8

@@ -3,7 +3,7 @@ server {
   server_name {{ nginx_fqdn | default(ansible_fqdn) }};
   return 301 https://$server_name$request_uri;
 }
-{% if nginx_www_redirect %}
+{% if nginx_www_redirect is defined and nginx_www_redirect %}
 
 server {
   listen 80;
@@ -50,7 +50,7 @@ server {
   location /_matrix/client/r0/account/password {
     return 403 '{"errcode": "M_FORBIDDEN","error": "Forbidden"}';
   }
-{% if synapse_public_baseurl is defined or element_disable_default_encryption %}
+{% if synapse_public_baseurl is defined or (element_disable_default_encryption is defined and element_disable_default_encryption) %}
 
   location /.well-known/matrix {
     root /var/www;
