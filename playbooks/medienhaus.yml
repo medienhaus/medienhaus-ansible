@@ -7,9 +7,9 @@
     - roles/postgres
     - roles/matrix-synapse
     - roles/element-web
-    - roles/medienhaus-backend
-    - roles/medienhaus-frontend
+    #- roles/medienhaus-backend
+    #- roles/medienhaus-frontend
   vars:
     nginx_site: medienhaus
     element_web_root: classroom
-    element_web_version: v1.9.8
+    element_web_version: v1.11.1
