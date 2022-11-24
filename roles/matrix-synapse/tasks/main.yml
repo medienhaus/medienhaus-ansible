@@ -47,7 +47,7 @@
     group: root
     mode: 0644
   loop:
-    - alias_creation_rules.yaml
+    #- alias_creation_rules.yaml
     - presence.yaml
     - room_list_publication_rules.yaml
   notify: restart matrix-synapse
