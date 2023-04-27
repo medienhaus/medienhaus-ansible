@@ -42,6 +42,11 @@
   "permalinkPrefix": "https://{{ synapse_public_baseurl | default(synapse_server_name) }}/{{ element_web_root | default('element') }}",
   "roomDirectory": {
     "servers": [
+{% if element_web_additional_room_directory_servers is defined %}
+{% for element_web_additional_room_directory_server in element_web_additional_room_directory_servers %}
+      "{{ server }}",
+{% endfor %}
+{% endif %}
       "{{ synapse_server_name }}"
     ]
   },
