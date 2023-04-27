@@ -44,7 +44,7 @@
     "servers": [
 {% if element_web_additional_room_directory_servers is defined %}
 {% for element_web_additional_room_directory_server in element_web_additional_room_directory_servers %}
-      "{{ server }}",
+      "{{ element_web_additional_room_directory_server }}",
 {% endfor %}
 {% endif %}
       "{{ synapse_server_name }}"
