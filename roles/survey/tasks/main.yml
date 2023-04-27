@@ -1,0 +1,10 @@
+---
+- name: apt update && apt upgrade
+  apt:
+    update_cache: yes
+    upgrade: dist
+
+- name: install dependencies via defaults/main.yml
+  apt:
+    name: "{{ depends }}"
+    update_cache: yes
