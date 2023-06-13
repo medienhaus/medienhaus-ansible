@@ -32,11 +32,10 @@ server {
     proxy_set_header X-Forwarded-Proto $scheme;
   }
 
-  location /monitoring {
-    auth_basic "rundgang.udk-berlin.de/monitoring";
-    auth_basic_user_file /var/www/.htpasswd;
-
-    root /var/www;
-    index index.html;
+  location /api {
+    proxy_pass http://127.0.0.1:3009;
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header X-Forwarded-Proto $scheme;
   }
 }

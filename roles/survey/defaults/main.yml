@@ -1,0 +1,13 @@
+---
+depends:
+  - php
+  - php-cli
+  - php-fpm
+  - php-common
+  - php-mbstring
+  - php-xml
+  - php-pgsql
+  - php-gd
+  - php-zip
+  - php-ldap
+  - php-imap

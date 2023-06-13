@@ -42,6 +42,11 @@
   "permalinkPrefix": "https://{{ synapse_public_baseurl | default(synapse_server_name) }}/{{ element_web_root | default('element') }}",
   "roomDirectory": {
     "servers": [
+{% if element_web_additional_room_directory_servers is defined %}
+{% for element_web_additional_room_directory_server in element_web_additional_room_directory_servers %}
+      "{{ element_web_additional_room_directory_server }}",
+{% endfor %}
+{% endif %}
       "{{ synapse_server_name }}"
     ]
   },
@@ -107,12 +112,17 @@
       {
         "name": "Medienhaus Day",
         "is_dark": false,
+        "fonts": {
+          "general": "\"Inter\"",
+          "monospace": "\"Roboto Mono\""
+        },
         "colors": {
           "accent": "#0f0f0f",
           "accent-color": "#0f0f0f",
           "primary-color": "#0f0f0f",
           "sidebar-color": "#ffffff",
           "warning-color": "#ff4b55",
+          "icon-button-color": "#0f0f0f",
           "roomlist-background-color": "#ffffff",
           "roomlist-highlights-color": "#f0f0f0",
           "roomlist-separator-color": "#f0f0f0",
@@ -128,12 +138,17 @@
       }, {
         "name": "Medienhaus Night",
         "is_dark": true,
+        "fonts": {
+          "general": "\"Inter\"",
+          "monospace": "\"Roboto Mono\""
+        },
         "colors": {
           "accent": "#3f3f3f",
           "accent-color": "#3f3f3f",
           "primary-color": "#f0f0f0",
           "sidebar-color": "#0f0f0f",
           "warning-color": "#ff4b55",
+          "icon-button-color": "#3f3f3f",
           "roomlist-background-color": "#0f0f0f",
           "roomlist-highlights-color": "#1f1f1f",
           "roomlist-separator-color": "#1f1f1f",
