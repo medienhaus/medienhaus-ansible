@@ -6,4 +6,4 @@
   vars:
     #element_web_root: classroom
     element_web_root: element
-    element_web_version: v1.11.42
+    element_web_version: v1.11.44
