@@ -11,7 +11,7 @@
   "brand": "{{ element_web_title | default('Element') }}",
   "bug_report_endpoint_url": "https://element.io/bugreports/submit",
   "default_federate": true,
-  "default_theme": "custom-Medienhaus Day",
+  "default_theme": "light",
   "defaultCountryCode": "DE",
   "disable_3pid_login": true,
   "disable_custom_urls": true,
@@ -30,8 +30,14 @@
     "https://{{ synapse_public_baseurl | default(synapse_server_name) }}": false
   },
   "features": {
+    "feature_ask_to_join": true,
+    "feature_group_calls": true,
+    "feature_element_call_video_rooms": true,
+    "feature_new_room_decoration_ui": true,
     "feature_spaces": true,
-    "feature_thread": true
+    "feature_spotlight": true,
+    "feature_thread": true,
+    "feature_video_rooms": true
   },
 {% if element_web_jitsi_domain is defined %}
   "jitsi": {
@@ -107,73 +113,6 @@
     "UIFeature.passwordReset": false,
     "UIFeature.deactivate": false,
     "UIFeature.advancedEncryption": false,
-    "UIFeature.roomHistorySettings": true,
-    "custom_themes": [
-      {
-        "name": "Medienhaus Day",
-        "is_dark": false,
-        "fonts": {
-          "general": "\"Inter\"",
-          "monospace": "\"Roboto Mono\""
-        },
-        "colors": {
-          "accent": "#0f0f0f",
-          "accent-color": "#0f0f0f",
-          "primary-color": "#0f0f0f",
-          "primary-content": "#0f0f0f",
-          "secondary-content": "#0f0f0f",
-          "tertiary-content": "#0f0f0f",
-          "quaternary-content": "#cfcfcf",
-          "quinary-content": "#cfcfcf",
-          "sidebar-color": "#ffffff",
-          "warning-color": "#ff4b55",
-          "icon-button-color": "#0f0f0f",
-          "roomlist-background-color": "#ffffff",
-          "roomlist-highlights-color": "#f0f0f0",
-          "roomlist-separator-color": "#f0f0f0",
-          "roomlist-text-color": "#0f0f0f",
-          "roomlist-text-secondary-color": "#0f0f0f",
-          "timeline-background-color": "#ffffff",
-          "timeline-highlights-color": "#fff8e3",
-          "timeline-text-color": "#0f0f0f",
-          "timeline-text-secondary-color": "#0f0f0f",
-          "togglesw-off-color": "#cfcfcf",
-          "avatar-background-colors": ["#0f0f0f", "#0f0f0f", "#0f0f0f"],
-          "username-colors": ["#0f0f0f", "#0f0f0f", "#0f0f0f", "#0f0f0f", "#0f0f0f", "#0f0f0f", "#0f0f0f", "#0f0f0f"]
-        }
-      }, {
-        "name": "Medienhaus Night",
-        "is_dark": true,
-        "fonts": {
-          "general": "\"Inter\"",
-          "monospace": "\"Roboto Mono\""
-        },
-        "colors": {
-          "accent": "#3f3f3f",
-          "accent-color": "#3f3f3f",
-          "primary-color": "#f0f0f0",
-          "primary-content": "#f0f0f0",
-          "secondary-content": "#f0f0f0",
-          "tertiary-content": "#f0f0f0",
-          "quaternary-content": "#1f1f1f",
-          "quinary-content": "#1f1f1f",
-          "sidebar-color": "#0f0f0f",
-          "warning-color": "#ff4b55",
-          "icon-button-color": "#3f3f3f",
-          "roomlist-background-color": "#0f0f0f",
-          "roomlist-highlights-color": "#1f1f1f",
-          "roomlist-separator-color": "#1f1f1f",
-          "roomlist-text-color": "#f0f0f0",
-          "roomlist-text-secondary-color": "#f0f0f0",
-          "timeline-background-color": "#0f0f0f",
-          "timeline-highlights-color": "#1a1f1c",
-          "timeline-text-color": "#f0f0f0",
-          "timeline-text-secondary-color": "#f0f0f0",
-          "togglesw-off-color": "#1f1f1f",
-          "avatar-background-colors": ["#1f1f1f", "#1f1f1f", "#1f1f1f"],
-          "username-colors": ["#f0f0f0", "#f0f0f0", "#f0f0f0", "#f0f0f0", "#f0f0f0", "#f0f0f0", "#f0f0f0", "#f0f0f0"]
-        }
-      }
-    ]
+    "UIFeature.roomHistorySettings": true
   }
 }
